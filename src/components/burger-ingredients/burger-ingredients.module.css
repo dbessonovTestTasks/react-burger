@@ -13,7 +13,3 @@
     max-height: 70vmin;
     overflow-y: scroll;
 }
-
-.tabHeader{
-    display: flex;
-}
