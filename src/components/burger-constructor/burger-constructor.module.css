@@ -1,0 +1,32 @@
+.ingidientBlock{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.ingidientsContainer{
+    margin-top: 60px;
+    margin-left: 40px;
+    padding-left: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.ingidientsSubContainer{
+    max-height: 45vmin;
+    overflow-y: scroll;
+}
+
+.totalContainer{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 40px;
+}
+
+.totalContainer svg{
+    width: 33px;
+    height: 33px;
+}
