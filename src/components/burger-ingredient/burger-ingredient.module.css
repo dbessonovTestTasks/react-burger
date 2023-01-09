@@ -1,0 +1,14 @@
+.flexCenter{
+    display: flex;
+    justify-content:center;
+}
+
+.ingredientName{
+    word-wrap: break-word;
+    text-align: center;    
+}
+
+.ingredientCard{
+    width: 276px;
+    position: relative;
+}

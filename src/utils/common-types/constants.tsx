@@ -1,0 +1,1 @@
+export const IngridientTypes={Bun:'bun', Sauce:'sauce', Main:'main'}

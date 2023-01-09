@@ -1,0 +1,15 @@
+.leftText{
+    text-align:left;
+}
+
+.ingredientsContainer{
+    text-align:left;
+    display: flex;
+    flex-wrap:wrap;
+    width: 600px;
+}
+
+.tabContainer{
+    max-height: 70vmin;
+    overflow-y: scroll;
+}
