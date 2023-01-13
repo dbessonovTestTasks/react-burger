@@ -1,4 +1,4 @@
-import  styles from './order-details.module.css';
+import styles from './order-details.module.css';
 import Modal from '../modal/modal';
 import orderDetailOkImage from '../../images/orderDetailOk.svg'
 
@@ -9,7 +9,7 @@ interface IProps {
 
 function OrderDetails(props: IProps){
     return (<Modal onClose={props.onClose}> 
-                <div>
+                <div className={styles.centerText}>
                     <p className={`${styles.glow} text text_type_digits-large mb-8`}>{props.orderNum}</p>
                     <p className='text text_type_main-medium mb-15'>идентификатор заказа</p>
                     <div className='mb-15'>
