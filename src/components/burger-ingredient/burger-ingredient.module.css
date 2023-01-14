@@ -11,4 +11,5 @@
 .ingredientCard{
     width: 276px;
     position: relative;
+    cursor: pointer;
 }
