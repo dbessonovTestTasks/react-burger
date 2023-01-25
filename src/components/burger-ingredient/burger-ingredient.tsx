@@ -11,7 +11,7 @@ interface IProps {
 
 function BurgerIngredient(props: IProps) {
     const [modalVisible, handleOpenModal, handleCloseModal] = useModalControl();
-
+    
     return (
         <>
             <div className={`${styles.ingredientCard} mt-6 ml-4 mb-2 mr-2`} onClick={handleOpenModal}>
