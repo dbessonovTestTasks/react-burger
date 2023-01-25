@@ -9,6 +9,9 @@ import { useDispatch } from '../hooks/use-dispatch';
 import { loadIngredients } from '../../services/actions/api-ingredients';
 import { useNavigationBlock } from '../hooks/use-navigation-block';
 import { ChangeActiveTabAction } from '../../services/actions/tabs-ingredients';
+import useModalControl from '../hooks/use-modal-control';
+import IngredientDetails from '../ingredient-details/ingredient-details';
+import { RemovePopupIngredientsAction } from '../../services/actions/popuped-ingredient';
 
 function BurgerIngredients() {
     const dispatch = useDispatch();
@@ -30,6 +33,8 @@ function BurgerIngredients() {
     useEffect(() => {
         dispatch(loadIngredients());
     }, [useDispatch]);
+
+    const {popupedIndredient} = useSelector(store => store.popupedIndredient);
 
     return (
         <div>
@@ -56,6 +61,9 @@ function BurgerIngredients() {
                 <div className={styles.ingredientsContainer}>
                     {mainIngredients.map(ingredient => (<BurgerIngredient ingredient={ingredient} count={ingredient.count} />))}
                 </div>
+            </div>
+            <div style={{ overflow: 'hidden' }}>
+                {!!popupedIndredient && <IngredientDetails onClose={()=>dispatch(RemovePopupIngredientsAction())} />}
             </div>
         </div>
     );

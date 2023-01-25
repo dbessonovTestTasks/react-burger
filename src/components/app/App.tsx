@@ -4,6 +4,8 @@ import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import AppError from '../app-error/app-error';
 import { useSelector } from '../hooks/use-selector';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 function App() {
   const {ingredientsFailed, ingredientsErrorMessage} = useSelector(store => store.apiIngredients);
@@ -15,8 +17,10 @@ function App() {
       {ingredientsFailed || orderFailed
         ?(<AppError errorMessage={ingredientsErrorMessage + orderErrorMessage}/>)
         :(<div className="appContent">
-          <BurgerIngredients/>
-          <BurgerConstructor/>        
+          <DndProvider backend={HTML5Backend}>
+            <BurgerIngredients/>
+            <BurgerConstructor/>
+          </DndProvider>      
         </div>)}    
     </div>
   );
