@@ -1,32 +1,19 @@
 import { getIngredientsDataApi } from '../../utils/api-requests';
 import { IBurgerIngredient } from '../../utils/common-types/interfaces';
 import { AppDispatch, AppThunk } from '../types';
+import { createAction } from '@reduxjs/toolkit';
+import { withPayloadType } from '../../utils/utils';
 
-export const API_INGREDIENTS_REQUEST = 'API_INGREDIENTS_REQUEST';
-export const API_INGREDIENTS_SUCCESS = 'API_INGREDIENTS_SUCCESS';
-export const API_INGREDIENTS_FAILED = 'API_INGREDIENTS_FAILED';
-
-export type TApiIngredientsRequestAction = { readonly type: typeof API_INGREDIENTS_REQUEST; };
-export type TApiIngredientsSuccessAction = {
-    readonly type: typeof API_INGREDIENTS_SUCCESS;
-    readonly payload: IBurgerIngredient[];
-};
-export type TGetIngredientsFailedAction = {
-    readonly type: typeof API_INGREDIENTS_FAILED;
-    readonly payload: string;
-};
-
-export type TApiIngredientsActions =
-    | TApiIngredientsRequestAction
-    | TApiIngredientsSuccessAction
-    | TGetIngredientsFailedAction;
+export const ApiIngredientsRequestAction = createAction('API_INGREDIENTS_REQUEST');
+export const ApiIngredientsSuccessAction = createAction('API_INGREDIENTS_SUCCESS', withPayloadType<IBurgerIngredient[]>());
+export const ApiIngredientsFailedAction = createAction<string, 'API_INGREDIENTS_FAILED'>('API_INGREDIENTS_FAILED');
 
 export const loadIngredients = (): AppThunk => async (dispatch: AppDispatch) => {
     try {
-        dispatch({ type: API_INGREDIENTS_REQUEST });
+        dispatch(ApiIngredientsRequestAction());
         const data = await getIngredientsDataApi();
-        dispatch({ type: API_INGREDIENTS_SUCCESS, payload: data.data });
+        dispatch(ApiIngredientsSuccessAction(data.data));
     } catch (error: any) {
-        dispatch({ type: API_INGREDIENTS_FAILED, payload: error.message});
+        dispatch(ApiIngredientsFailedAction(error.message));
     }
 }

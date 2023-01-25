@@ -1,34 +1,21 @@
 import { createOrderApi } from '../../utils/api-requests';
 import { IBurgerOrder } from '../../utils/common-types/interfaces';
 import { AppDispatch, AppThunk } from '../types';
+import { createAction } from '@reduxjs/toolkit';
+import { withPayloadType } from '../../utils/utils';
 
-export const API_ORDER_REQUEST = 'API_ORDER_REQUEST';
-export const API_ORDER_SUCCESS = 'API_ORDER_SUCCESS';
-export const API_ORDER_FAILED = 'API_ORDER_FAILED';
-
-export type TApiOrderRequestAction = { readonly type: typeof API_ORDER_REQUEST; };
-export type TApiOrderSuccessAction = {
-    readonly type: typeof API_ORDER_SUCCESS;
-    readonly payload: IBurgerOrder;
-};
-export type TGetOrderFailedAction = {
-    readonly type: typeof API_ORDER_FAILED;
-    readonly payload: string;
-};
-
-export type TApiOrderActions =
-    | TApiOrderRequestAction
-    | TApiOrderSuccessAction
-    | TGetOrderFailedAction;
+export const ApiOrderRequestAction = createAction('API_ORDER_REQUEST');
+export const ApiOrderSuccessAction = createAction('API_ORDER_SUCCESS', withPayloadType<IBurgerOrder>());
+export const ApiOrderFailedAction = createAction<string, 'API_INGREDIENTS_FAILED'>('API_INGREDIENTS_FAILED');
 
 export const createOrder = (ingredients: string[]): AppThunk => (dispatch: AppDispatch) => {
     return async function (dispatch: Function) {
         try {
-            dispatch({ type: API_ORDER_REQUEST });
+            dispatch(ApiOrderRequestAction());
             const data = await createOrderApi(ingredients);
-            dispatch({ type: API_ORDER_SUCCESS, payload: data.data });
+            dispatch(ApiOrderSuccessAction(data.data));
         } catch (error: any) {
-            dispatch({ type: API_ORDER_FAILED, payload: error.message });
+            dispatch(ApiOrderFailedAction(error.message));
         }
     };
 }

@@ -1,11 +1,6 @@
 import { TConstructorIngredient } from '../../utils/common-types/interfaces';
-import {
-    CHANGE_BUN_IN_BURGER,
-    ADD_INGREDIENT_TO_BURGER,
-    REMOVE_INGREDIENT_FROM_BURGER,
-    TConstructorIngredientsActions
-} from '../actions/constructor-ingredients';
-
+import { ChangeBunAction, AddIngredientToBurgerAction, RemoveIngredientFromBurgerAction } from '../actions/constructor-ingredients';
+import { createReducer } from '@reduxjs/toolkit';
 
 interface IConstructorIngredientsStore {
     bun: TConstructorIngredient | null;
@@ -17,19 +12,14 @@ const initConstructorIngredientsStore: IConstructorIngredientsStore = {
     notBunIngredients: []
 };
 
-export const constructorIngredientsReducer = (state = initConstructorIngredientsStore, action: TConstructorIngredientsActions): IConstructorIngredientsStore => {
-    switch (action.type) {
-        case CHANGE_BUN_IN_BURGER: {
+export const constructorIngredientsReducer = createReducer(initConstructorIngredientsStore, (builder) =>
+    builder
+        .addCase(ChangeBunAction, (state, action) => {
             return { ...state, bun: action.payload };
-        }
-        case ADD_INGREDIENT_TO_BURGER: {
+        })
+        .addCase(AddIngredientToBurgerAction, (state, action) => {
             return { ...state, notBunIngredients: [...state.notBunIngredients, action.payload] };
-        }
-        case REMOVE_INGREDIENT_FROM_BURGER: {
+        })
+        .addCase(RemoveIngredientFromBurgerAction, (state, action) => {
             return { ...state, notBunIngredients: [...state.notBunIngredients.filter(o => o.key === action.payload.key)] };
-        }
-        default: {
-            return state;
-        }
-    }
-};
+        }));

@@ -1,9 +1,9 @@
-import { IBurgerIngredient, TConstructorIngredient } from '../../utils/common-types/interfaces';
+import { createReducer } from '@reduxjs/toolkit';
+import { IBurgerIngredient } from '../../utils/common-types/interfaces';
 import {
-    API_INGREDIENTS_REQUEST,
-    API_INGREDIENTS_SUCCESS,
-    API_INGREDIENTS_FAILED,
-    TApiIngredientsActions
+    ApiIngredientsRequestAction,
+    ApiIngredientsSuccessAction,
+    ApiIngredientsFailedAction
 } from '../actions/api-ingredients';
 
 
@@ -12,29 +12,23 @@ interface IIngredientsStore {
     ingredientsRequest: boolean;
     ingredientsFailed: boolean;
     ingredientsErrorMessage: string;
-  }
+}
 
 const initIngredientsStore: IIngredientsStore = {
     ingredients: [],
     ingredientsRequest: false,
-    ingredientsFailed: false,  
-    ingredientsErrorMessage: '' 
+    ingredientsFailed: false,
+    ingredientsErrorMessage: ''
 };
 
-export const apiIngredientsReducer = (state = initIngredientsStore, action: TApiIngredientsActions): IIngredientsStore => {
-    switch (action.type) {
-        case API_INGREDIENTS_REQUEST: {
+export const apiIngredientsReducer = createReducer(initIngredientsStore, (builder) =>
+    builder
+        .addCase(ApiIngredientsRequestAction, (state) => {
             return { ...state, ingredientsRequest: true };
-        }
-        case API_INGREDIENTS_SUCCESS: {
+        })
+        .addCase(ApiIngredientsSuccessAction, (state, action) => {
             return { ...state, ingredientsFailed: false, ingredients: action.payload, ingredientsRequest: false };
-        }
-        case API_INGREDIENTS_FAILED: {
-            return { ...state, ingredientsFailed: true, ingredientsRequest: false, ingredientsErrorMessage: action.payload};
-        }
-
-        default: {
-            return state;
-        }
-    }
-};
+        })
+        .addCase(ApiIngredientsFailedAction, (state, action) => {
+            return { ...state, ingredientsFailed: true, ingredientsRequest: false, ingredientsErrorMessage: action.payload };
+        }));

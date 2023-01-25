@@ -1,9 +1,8 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './tabs-ingredients.module.css';
-import { useState } from 'react';
 import { useSelector } from '../hooks/use-selector';
 import { useDispatch } from '../hooks/use-dispatch';
-import { CHANGE_ACTIVE_TAB } from '../../services/actions/tabs-ingredients';
+import { ChangeActiveTabAction } from '../../services/actions/tabs-ingredients';
 import { TabList } from '../../utils/common-types/constants';
 
 interface IProps {
@@ -18,7 +17,7 @@ function TabsIngredients(props: IProps) {
 
     const changeTab = (tabName: string, scrollToDiv: () => void) => {
         scrollToDiv();
-        dispatch({ type: CHANGE_ACTIVE_TAB, payload: tabName });
+        dispatch(ChangeActiveTabAction(tabName));
     }
 
     return (

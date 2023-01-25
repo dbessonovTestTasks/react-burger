@@ -8,7 +8,7 @@ import { useSelector } from '../hooks/use-selector';
 import { useDispatch } from '../hooks/use-dispatch';
 import { loadIngredients } from '../../services/actions/api-ingredients';
 import { useNavigationBlock } from '../hooks/use-navigation-block';
-import { CHANGE_ACTIVE_TAB } from '../../services/actions/tabs-ingredients';
+import { ChangeActiveTabAction } from '../../services/actions/tabs-ingredients';
 
 function BurgerIngredients() {
     const dispatch = useDispatch();
@@ -18,7 +18,7 @@ function BurgerIngredients() {
     const [mainPartRef, mainScroll, isMainVisible] = useNavigationBlock();
 
     useEffect(() => {
-        dispatch({ type: CHANGE_ACTIVE_TAB, payload: isBunVisible ? TabList.BunTab : (isSauceVisible ? TabList.SauceTab : TabList.MainTab) });
+        dispatch(ChangeActiveTabAction(isBunVisible ? TabList.BunTab : (isSauceVisible ? TabList.SauceTab : TabList.MainTab)));
     }, [dispatch, isBunVisible, isSauceVisible, isMainVisible]);
 
     const ingredients = useSelector(store => store.apiIngredients.ingredients.map(o => ({ ...o, count: 0 }) as TBurgerIngredient));

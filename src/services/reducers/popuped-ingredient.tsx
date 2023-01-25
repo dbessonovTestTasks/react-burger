@@ -1,29 +1,20 @@
 import { IBurgerIngredient } from '../../utils/common-types/interfaces';
-import {
-    ADD_POPUP_INGREDIENT_DETAILS,
-    REMOVE_POPUP_INGREDIENT_DETAILS,
-    TPopupIngredientsActions
-} from '../actions/popuped-ingredient';
+import { AddPopupIngredientsAction, RemovePopupIngredientsAction } from '../actions/popuped-ingredient';
+import { createReducer } from '@reduxjs/toolkit';
 
-
-interface IPopupedIndredientStore { 
-    popupedIndredient: IBurgerIngredient|null;
+interface IPopupedIndredientStore {
+    popupedIndredient: IBurgerIngredient | null;
 }
 
 const initPopupedIndredientStore: IPopupedIndredientStore = {
     popupedIndredient: null
 };
 
-export const popupedIndredientReducer = (state = initPopupedIndredientStore, action: TPopupIngredientsActions): IPopupedIndredientStore => {
-    switch (action.type) {
-        case ADD_POPUP_INGREDIENT_DETAILS: {
+export const popupedIndredientReducer = createReducer(initPopupedIndredientStore, (builder) =>
+    builder
+        .addCase(AddPopupIngredientsAction, (state, action) => {
             return { popupedIndredient: action.payload };
-        }
-        case REMOVE_POPUP_INGREDIENT_DETAILS: {
+        })
+        .addCase(RemovePopupIngredientsAction, (state, action) => {
             return initPopupedIndredientStore;
-        }
-        default: {
-            return state;
-        }
-    }
-};
+        }));

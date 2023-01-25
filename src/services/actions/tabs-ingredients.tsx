@@ -1,5 +1,4 @@
-export const CHANGE_ACTIVE_TAB = 'CHANGE_ACTIVE_TAB';
-export type TChangeActiveTabAction = {
-    readonly type: typeof CHANGE_ACTIVE_TAB;
-    readonly payload: string;
-};
+import { createAction } from '@reduxjs/toolkit';
+import { withPayloadType } from '../../utils/utils';
+
+export const ChangeActiveTabAction = createAction('CHANGE_ACTIVE_TAB', withPayloadType<string>());

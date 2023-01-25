@@ -1,7 +1,7 @@
 import { rootReducer } from './reducers/root-reducer';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
-import { TApplicationActions } from './actions/common';
+import { AnyAction } from "redux";
 
 export type RootState = ReturnType<typeof rootReducer>;
-export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, never, TApplicationActions>;
-export type AppDispatch = ThunkDispatch<RootState, never, TApplicationActions>;
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, never, AnyAction>;
+export type AppDispatch = ThunkDispatch<RootState, never, AnyAction>;
