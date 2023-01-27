@@ -3,7 +3,7 @@ import styles from './tabs-ingredients.module.css';
 import { useSelector } from '../hooks/use-selector';
 import { useDispatch } from '../hooks/use-dispatch';
 import { ChangeActiveTabAction } from '../../services/actions/tabs-ingredients';
-import { TabList } from '../../utils/common-types/constants';
+import { tabList } from '../../utils/common-types/constants';
 
 interface IProps {
     bunScroll: () => void;
@@ -22,13 +22,13 @@ function TabsIngredients(props: IProps) {
 
     return (
         <div className={`${styles.tabHeader} mb-2`}>
-            <Tab value={TabList.BunTab} active={activeTabName === TabList.BunTab} onClick={(tabName) => changeTab(tabName, props.bunScroll)}>
+            <Tab value={tabList.BunTab} active={activeTabName === tabList.BunTab} onClick={(tabName) => changeTab(tabName, props.bunScroll)}>
                 Булки
             </Tab>
-            <Tab value={TabList.SauceTab} active={activeTabName === TabList.SauceTab} onClick={(tabName) => changeTab(tabName, props.sauceScroll)}>
+            <Tab value={tabList.SauceTab} active={activeTabName === tabList.SauceTab} onClick={(tabName) => changeTab(tabName, props.sauceScroll)}>
                 Соусы
             </Tab>
-            <Tab value={TabList.MainTab} active={activeTabName === TabList.MainTab} onClick={(tabName) => changeTab(tabName, props.mainScroll)}>
+            <Tab value={tabList.MainTab} active={activeTabName === tabList.MainTab} onClick={(tabName) => changeTab(tabName, props.mainScroll)}>
                 Начинки
             </Tab>
         </div>

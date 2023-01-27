@@ -1,16 +1,11 @@
 import styles from './ingredient-details.module.css';
-import Modal from '../modal/modal';
 import { useSelector } from '../hooks/use-selector';
 
-interface IProps {
-    onClose: () => void;
-}
-
-function IngredientDetails(props: IProps) {
+function IngredientDetails() {
     const { popupedIndredient: ingredient } = useSelector(store => store.popupedIndredient);
 
-    return (<Modal title="Детали ингредиента" onClose={props.onClose}>
-        <div>
+    return (
+        <div className={styles.centerText}>
             <img className='pl-5 pr-5 mb-4' src={ingredient?.image_large} alt={ingredient?.name} />
             <p className='text text_type_main-medium mb-8'>{ingredient?.name}</p>
             <div className={styles.PFC}>
@@ -32,7 +27,6 @@ function IngredientDetails(props: IProps) {
                 </div>
             </div>
         </div>
-    </Modal>
     );
 }
 

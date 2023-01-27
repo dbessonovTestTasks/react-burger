@@ -3,3 +3,6 @@
     align-items: center;     
     justify-content: space-between;
 }
+.centerText{
+    text-align: center;
+}

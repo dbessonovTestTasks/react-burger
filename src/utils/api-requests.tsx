@@ -1,6 +1,5 @@
 
-import { json } from 'stream/consumers';
-import { GetIngredientListUrl, CreateOrderUrl } from './common-types/constants';
+import { baseUrl } from './common-types/constants';
 
 const parseResponse = async (res: Response) => {
   if (!res.ok) {
@@ -11,27 +10,29 @@ const parseResponse = async (res: Response) => {
   return res.json();
 }
 
-export const getIngredientsDataApi = async () => {
-  const res = await fetch(GetIngredientListUrl);
+// function sleep(time:number){
+//   return new Promise((resolve)=>setTimeout(resolve,time)
+// )}
+
+const request = async (url: string, options?: RequestInit) => {
+  const res = await fetch(url, options);
   const data = await parseResponse(res);
   if (!data.success)
     throw new Error("Backend unsuccess");
   return data;
 }
 
+export const getIngredientsDataApi = async () => {
+  return await request(`${baseUrl}/ingredients`);
+}
+
 export const createOrderApi = async (ingredients: string[]) => {
-  const res = await fetch(CreateOrderUrl, {
+  return await request(`${baseUrl}/orders`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    
     body: JSON.stringify({ ingredients: ingredients })
-    //body: JSON.stringify({ ingredients: ["609646e4dc916e00276b286e","609646e4dc916e00276b2870"] } )
   });
-  const data = await parseResponse(res);
-  if (!data.success)
-    throw new Error("Backend unsuccess");
-  return data;
 }  

@@ -1,4 +1,4 @@
-import { TabList } from '../../utils/common-types/constants';
+import { tabList } from '../../utils/common-types/constants';
 import { ChangeActiveTabAction } from '../actions/tabs-ingredients';
 import { createReducer } from '@reduxjs/toolkit';
 
@@ -7,7 +7,7 @@ interface ITabsIngredientStore {
 }
 
 const initPopupedIndredientStore: ITabsIngredientStore = {
-    activeTabName: TabList.BunTab
+    activeTabName: tabList.BunTab
 };
 
 export const tabsIngredientReducer = createReducer(initPopupedIndredientStore, (builder) =>

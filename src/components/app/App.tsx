@@ -1,4 +1,4 @@
-import './App.css';
+import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
@@ -12,16 +12,18 @@ function App() {
   const {orderFailed, orderErrorMessage} = useSelector(store => store.apiOrder);
   
   return (
-    <div className="App">
+    <div className={styles.App}>
       <AppHeader/>
-      {ingredientsFailed || orderFailed
-        ?(<AppError errorMessage={ingredientsErrorMessage + orderErrorMessage}/>)
-        :(<div className="appContent">
-          <DndProvider backend={HTML5Backend}>
-            <BurgerIngredients/>
-            <BurgerConstructor/>
-          </DndProvider>      
-        </div>)}    
+      <main>
+        {ingredientsFailed || orderFailed
+          ?(<AppError errorMessage={ingredientsErrorMessage + orderErrorMessage}/>)
+          :(<div className={styles.appContent}>
+            <DndProvider backend={HTML5Backend}>
+              <BurgerIngredients/>
+              <BurgerConstructor/>
+            </DndProvider>      
+          </div>)}    
+      </main>
     </div>
   );
 }
