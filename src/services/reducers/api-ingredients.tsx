@@ -30,5 +30,5 @@ export const apiIngredientsReducer = createReducer(initIngredientsStore, (builde
             return { ...state, ingredientsFailed: false, ingredients: action.payload, ingredientsRequest: false };
         })
         .addCase(ApiIngredientsFailedAction, (state, action) => {
-            return { ...state, ingredientsFailed: true, ingredientsRequest: false, ingredientsErrorMessage: action.payload };
+            return { ingredients: [], ingredientsFailed: true, ingredientsRequest: false, ingredientsErrorMessage: action.payload };
         }));

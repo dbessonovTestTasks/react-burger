@@ -21,6 +21,11 @@ export type TConstructorIngredient = IBurgerIngredient & {
   key: string;
 }
 
+export interface IExchangeElements{
+  dragIndex: number;
+  hoverIndex: number;
+}
+
 export interface IBurgerOrder {
   name: string;
   order: { number: string };

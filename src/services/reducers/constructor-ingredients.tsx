@@ -1,5 +1,5 @@
 import { TConstructorIngredient } from '../../utils/common-types/interfaces';
-import { ChangeBunAction, AddIngredientToBurgerAction, RemoveIngredientFromBurgerAction } from '../actions/constructor-ingredients';
+import { ChangeBunAction, AddIngredientToBurgerAction, RemoveIngredientFromBurgerAction, ChangeIngredientsOrderAction } from '../actions/constructor-ingredients';
 import { createReducer } from '@reduxjs/toolkit';
 
 interface IConstructorIngredientsStore {
@@ -21,5 +21,12 @@ export const constructorIngredientsReducer = createReducer(initConstructorIngred
             return { ...state, notBunIngredients: [...state.notBunIngredients, action.payload] };
         })
         .addCase(RemoveIngredientFromBurgerAction, (state, action) => {
-            return { ...state, notBunIngredients: [...state.notBunIngredients.filter(o => o.key === action.payload.key)] };
+            return { ...state, notBunIngredients: [...state.notBunIngredients.filter(o => o.key !== action.payload)] };
+        })
+        .addCase(ChangeIngredientsOrderAction, (state, action) => {
+            const ingredients = [...state.notBunIngredients];
+            const target = ingredients[action.payload.dragIndex];
+            ingredients.splice(action.payload.dragIndex, 1);
+            ingredients.splice(action.payload.hoverIndex, 0, target);
+            return { ...state, notBunIngredients: ingredients };
         }));

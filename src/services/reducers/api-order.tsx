@@ -19,11 +19,11 @@ const initOrderStore: IOrderStore = {
 export const apiOrderReducer = createReducer(initOrderStore, (builder) =>
     builder
         .addCase(ApiOrderRequestAction, (state) => {
-            return { ...state, orderRequest: true };
+            return { ...state, orderRequest: true, order: null };
         })
         .addCase(ApiOrderSuccessAction, (state, action) => {
             return { ...state, orderFailed: false, order: action.payload, orderRequest: false };
         })
         .addCase(ApiOrderFailedAction, (state, action) => {
-            return { ...state, orderFailed: true, orderRequest: false, orderErrorMessage: action.payload };
+            return { order: null, orderFailed: true, orderRequest: false, orderErrorMessage: action.payload };
         }));

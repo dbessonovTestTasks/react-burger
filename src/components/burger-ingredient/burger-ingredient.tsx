@@ -23,7 +23,7 @@ function BurgerIngredient(props: IProps) {
 
     return (
         <>
-            <div className={`${styles.ingredientCard} mt-6 ml-4 mb-2 mr-2`} style={{ opacity }} 
+            <div className={`${styles.ingredientCard} mt-6 ml-4 mb-2 mr-2`} style={{ opacity }}
                  onClick={()=>{dispatch(AddPopupIngredientsAction(props.ingredient))}} ref={dragRef} draggable>
                 {props.count > 0
                     ? <Counter count={props.count} size='default' />

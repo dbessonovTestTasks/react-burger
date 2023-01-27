@@ -3,7 +3,7 @@ import Modal from '../modal/modal';
 import orderDetailOkImage from '../../images/orderDetailOk.svg'
 
 interface IProps {
-    orderNum: string;
+    orderNum?: string;
     onClose: () => void;
 }
 
