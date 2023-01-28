@@ -18,7 +18,7 @@ function AppHeader() {
                         <ListIcon type='secondary'  />
                         <a className='pl-2 text text_type_main-default text_color_inactive'>Лента заказов</a>
                     </div>                    
-                    <div className='pl-5 pr-5 pt-4 pb-4' style={{float:'right'}}>
+                    <div className={`pl-5 pr-5 pt-4 pb-4 ${styles.floatRight}`}>
                         <ProfileIcon type='secondary' />
                         <a className='pl-2 text text_type_main-default text_color_inactive'>Личный кабинет</a>
                     </div> 

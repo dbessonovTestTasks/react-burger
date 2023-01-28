@@ -26,6 +26,10 @@
   margin-left:-130px;
 }
 
+.floatRight{
+  float: right !important;
+}
+
 @media screen and (max-width: 1000px) {
   .logo {
     display: none;
