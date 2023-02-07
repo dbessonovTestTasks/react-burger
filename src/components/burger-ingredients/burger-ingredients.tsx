@@ -6,7 +6,7 @@ import { ingridientTypes, tabList } from '../../utils/common-types/constants';
 import { useMemo, useEffect } from 'react';
 import { useSelector } from '../hooks/use-selector';
 import { useDispatch } from '../hooks/use-dispatch';
-import { loadIngredients } from '../../services/actions/api-ingredients';
+import { loadIngredients } from '../../services/actions/api-actions';
 import { useNavigationBlock } from '../hooks/use-navigation-block';
 import { ChangeActiveTabAction } from '../../services/actions/tabs-ingredients';
 import IngredientDetails from '../ingredient-details/ingredient-details';
@@ -27,8 +27,8 @@ function BurgerIngredients() {
     const ingredientsFromApi = useSelector(store => store.apiIngredients);
     const addedIngredients = useSelector(store => [...store.constructorIngredients.notBunIngredients,
     store.constructorIngredients.bun, store.constructorIngredients.bun]);
-    const ingredients = useMemo(() => ingredientsFromApi.ingredients.map(o =>
-        ({ ...o, count: addedIngredients.filter(a => a?._id === o._id).length }) as TBurgerIngredient), [ingredientsFromApi, addedIngredients]);
+    const ingredients = useMemo(() => ingredientsFromApi.answer?.data.map(o =>
+        ({ ...o, count: addedIngredients.filter(a => a?._id === o._id).length }) as TBurgerIngredient) ?? [], [ingredientsFromApi, addedIngredients]);
 
     const bunIngredients = useMemo(() => ingredients.filter(o => o.type === ingridientTypes.Bun), [ingredients]);
     const sauceIngredients = useMemo(() => ingredients.filter(o => o.type === ingridientTypes.Sauce), [ingredients]);

@@ -10,7 +10,7 @@ import { useDispatch } from '../hooks/use-dispatch';
 import { useDrop } from "react-dnd";
 import { AddIngredientToBurgerAction, ChangeBunAction, ChangeIngredientsOrderAction } from '../../services/actions/constructor-ingredients';
 import { IExchangeElements, TBurgerIngredient, TConstructorIngredient } from '../../utils/common-types/interfaces';
-import { createOrder } from '../../services/actions/api-order';
+import { createOrder } from '../../services/actions/api-actions';
 import BurgerConstructorElement from '../burger-constructor-element/burger-constructor-element';
 import Modal from '../modal/modal';
 
@@ -18,7 +18,7 @@ function BurgerConstructor() {
     const dispatch = useDispatch();
 
     const [modalVisible, handleOpenModal, handleCloseModal] = useModalControl();
-    const { orderRequest, order } = useSelector(store => store.apiOrder);
+    const { request: orderRequest, answer: order } = useSelector(store => store.apiOrder);
     const { bun, notBunIngredients } = useSelector(store => store.constructorIngredients);
 
     const [, dropTarget] = useDrop({
