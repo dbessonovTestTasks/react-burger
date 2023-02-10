@@ -3,6 +3,14 @@
     align-items: center;     
     justify-content: space-between;
 }
-.centerText{
+
+.container{    
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.subContainer{    
     text-align: center;
+    width: 520px;
 }

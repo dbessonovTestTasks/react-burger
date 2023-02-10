@@ -1,6 +1,6 @@
 import { TConstructorIngredient, IExchangeElements } from '../../utils/common-types/interfaces';
 import { createAction } from '@reduxjs/toolkit';
-import { withPayloadType } from '../../utils/utils';
+import { withPayloadType } from '../../utils/api-action-creator';
 
 export const ChangeBunAction = createAction('CHANGE_BUN_IN_BURGER', withPayloadType<TConstructorIngredient>());
 export const AddIngredientToBurgerAction = createAction('ADD_INGREDIENT_TO_BURGER', withPayloadType<TConstructorIngredient>());

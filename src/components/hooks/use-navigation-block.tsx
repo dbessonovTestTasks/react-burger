@@ -1,4 +1,4 @@
-import { useRef, useCallback, useEffect } from 'react';
+import { useRef, useCallback } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 export function useNavigationBlock() {
