@@ -5,7 +5,7 @@ import { matchPath, useLocation } from 'react-router-dom';
 
 function AppHeader() {
     const { pathname } = useLocation();    
-    const ordersIsInactive = !matchPath(pathname, '/profile/orders');
+    const ordersIsInactive = !matchPath(pathname, '/orders');
     const profileIsInactive = !matchPath(pathname, '/profile');
     const constructorIsInactive = !matchPath(pathname, '/');
 
@@ -25,7 +25,7 @@ function AppHeader() {
                     </div>
                     <div className='pl-5 pr-5 pt-4 pb-4'>
                         <ListIcon type={iconType(ordersIsInactive)} />
-                        <Link to={'/profile/orders'} className={`pl-2 text text_type_main-default ${colorType(ordersIsInactive)}`}>Лента заказов</Link>
+                        <Link to={'/orders'} className={`pl-2 text text_type_main-default ${colorType(ordersIsInactive)}`}>Лента заказов</Link>
                     </div>
                     <div className={`pl-5 pr-5 pt-4 pb-4 ${styles.floatRight}`}>
                         <ProfileIcon type={iconType(profileIsInactive)} />

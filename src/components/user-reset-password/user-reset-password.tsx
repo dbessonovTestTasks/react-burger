@@ -17,9 +17,9 @@ function UserResetPassword() {
     const isTryResetPassword = useSelector(store => store.internalUser.isTryResetPassword);
 
     useEffect(() => {
-        if (!isTryResetPassword)
+        if (!resetPasswordStore.answer?.success && !isTryResetPassword)
             navigate('/forgot-password');
-    }, [isTryResetPassword, navigate]);
+    }, [resetPasswordStore.answer?.success, isTryResetPassword, navigate]);
 
     useEffect(() => {
         if (resetPasswordStore.answer?.success) {

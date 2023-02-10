@@ -12,6 +12,7 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import { useEffect } from 'react';
 import { loadIngredientsAction } from '../../services/api-actions-generation';
 import { useDispatch } from '../hooks/use-dispatch';
+import UserProfileEdit from '../user-profile-edit/user-profile-edit';
 
 
 function App() {
@@ -39,12 +40,15 @@ function App() {
                 <Route path='/register' element={<OnlyUnAuthRouteElement element={<RegisterPage />} />} />
                 <Route path='/forgot-password' element={<OnlyUnAuthRouteElement element={<ForgotPasswordPage />} />} />
                 <Route path='/reset-password' element={<OnlyUnAuthRouteElement element={<ResetPasswordPage />} />} />
-                <Route path='/profile' element={<ProtectedRouteElement element={<ProfilePage />} />} />
-                <Route path='/profile/orders' element={<ProtectedRouteElement element={<NotFoundPage />} />} />
-                <Route path='/profile/orders/:id' element={<ProtectedRouteElement element={<NotFoundPage />} />} />
+                <Route path='/profile' element={<ProtectedRouteElement element={<ProfilePage />} />} >
+                  <Route path='/profile' element={<ProtectedRouteElement element={<UserProfileEdit />} />} />
+                  <Route path='/profile/orders' element={<ProtectedRouteElement element={<NotFoundPage />} />} />
+                  <Route path='/profile/orders/:id' element={<ProtectedRouteElement element={<NotFoundPage />} />} />
+                  <Route path='/profile/logout' element={<LogoutPage />} />
+                </Route>
                 <Route path='/ingredients/:id' element={<IngredientDetails />} />
                 <Route path='/' element={<HomePage />} />
-                <Route path='/logout' element={<LogoutPage />} />
+
                 <Route path='*' element={<NotFoundPage />} />
               </Routes>
               {background && (

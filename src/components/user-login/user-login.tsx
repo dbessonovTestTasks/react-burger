@@ -24,7 +24,7 @@ function UserLogin() {
 
     useEffect(() => {
         if (userIsLogged)
-            navigate(!!state?.redirectTo ? state.redirectTo : '/');
+            navigate(!!state?.redirectTo && state?.redirectTo !== '/profile/logout' ? state.redirectTo : '/');
 
     }, [userIsLogged, navigate, dispatch]);
 
