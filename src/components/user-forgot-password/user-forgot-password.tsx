@@ -1,40 +1,53 @@
-import { EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useEffect, useState } from 'react';
+import { EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
+import { SyntheticEvent, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './user-forgot-password.module.css';
 import { useNavigate } from "react-router-dom";
-import { loadForgotPass } from '../../services/actions/api-actions';
+import { forgotPassAction } from '../../services/api-actions-generation';
 import { useDispatch } from '../hooks/use-dispatch';
 import { useSelector } from '../hooks/use-selector';
+import LoaderButton from '../loader-button/loader-button';
+import { SetUserTryResetPassword } from '../../services/actions/internal-user';
 
 function UserForgotPassword() {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
-    const passwordSuccess = useSelector(o => o.forgotPassword.answer?.success);
+
     const dispatch = useDispatch();
+    const forgotPasswordStore = useSelector(o => o.forgotPassword);
+    const isTryResetPassword = useSelector(store => store.internalUser.isTryResetPassword);
 
     useEffect(() => {
-        if (passwordSuccess)
-            navigate('/reset-password');
-    }, [passwordSuccess]);
+        if (forgotPasswordStore.answer?.success && isTryResetPassword)
+           navigate('/reset-password');
+    }, [forgotPasswordStore.answer?.success, isTryResetPassword, navigate]);
 
-    const handleForgotPassword = () => {
-        dispatch(loadForgotPass(email));        
+    const handleForgotPassword = (e: SyntheticEvent) => {
+        e.preventDefault();
+        if (!!email)
+           {
+             dispatch(forgotPassAction(email));
+             dispatch(SetUserTryResetPassword());
+           }
     };
 
-    return (<div className={styles.container}>
-        <p className={`text text_type_main-medium ${styles.mb30}`}>Восстановленние пароля</p>
-        <EmailInput
-            placeholder='Укажите e-mail'
-            onChange={e => setEmail(e.target.value)}
-            value={email}
-            name={'email'}
-            isIcon={false}
-            extraClass='mb-6'
-        />
-        <Button htmlType='button' type='primary' size='medium' extraClass='mb-20' onClick={handleForgotPassword}>Восстановить</Button>
-        <p className='text text_type_main-default text_color_inactive mb4'>Вспомнили пароль? <Link className={styles.link} to='/login'>Войти</Link></p>
-    </div>);
+    return (
+        <div className={styles.container}>
+            <form onSubmit={handleForgotPassword} className='mb-20'>
+                <p className={`text text_type_main-medium ${styles.mb30}`}>Восстановленние пароля</p>
+                <EmailInput
+                    placeholder='Укажите e-mail'
+                    onChange={e => setEmail(e.target.value)}
+                    value={email}
+                    name={'email'}
+                    isIcon={false}
+                    extraClass='mb-6'
+                />
+                <LoaderButton htmlType='submit' isDisabled={forgotPasswordStore.request} loaderText={'Проверка...'} text={'Восстановить'}
+                    errorText={forgotPasswordStore.failed ? forgotPasswordStore.errorMessage : ''} />
+            </form>
+            <p className='text text_type_main-default text_color_inactive mb4'>Вспомнили пароль? <Link className={styles.link} to='/login'>Войти</Link></p>
+        </div>);
 }
 
 export default UserForgotPassword;

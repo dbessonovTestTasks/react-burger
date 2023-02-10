@@ -6,12 +6,9 @@ import { ingridientTypes, tabList } from '../../utils/common-types/constants';
 import { useMemo, useEffect } from 'react';
 import { useSelector } from '../hooks/use-selector';
 import { useDispatch } from '../hooks/use-dispatch';
-import { loadIngredients } from '../../services/actions/api-actions';
+import { loadIngredientsAction } from '../../services/api-actions-generation';
 import { useNavigationBlock } from '../hooks/use-navigation-block';
 import { ChangeActiveTabAction } from '../../services/actions/tabs-ingredients';
-import IngredientDetails from '../ingredient-details/ingredient-details';
-import { RemovePopupIngredientsAction } from '../../services/actions/popuped-ingredient';
-import Modal from '../modal/modal';
 
 function BurgerIngredients() {
     const dispatch = useDispatch();
@@ -33,12 +30,6 @@ function BurgerIngredients() {
     const bunIngredients = useMemo(() => ingredients.filter(o => o.type === ingridientTypes.Bun), [ingredients]);
     const sauceIngredients = useMemo(() => ingredients.filter(o => o.type === ingridientTypes.Sauce), [ingredients]);
     const mainIngredients = useMemo(() => ingredients.filter(o => o.type === ingridientTypes.Main), [ingredients]);
-
-    useEffect(() => {
-        dispatch(loadIngredients());
-    }, [dispatch]);
-
-    const { popupedIndredient } = useSelector(store => store.popupedIndredient);
 
     return (
         <div>
@@ -65,11 +56,7 @@ function BurgerIngredients() {
                 <div className={styles.ingredientsContainer}>
                     {mainIngredients.map(ingredient => (<BurgerIngredient ingredient={ingredient} count={ingredient.count} key={ingredient._id} />))}
                 </div>
-            </div>
-            {!!popupedIndredient &&
-                (<Modal title="Детали ингредиента" onClose={() => dispatch(RemovePopupIngredientsAction())}>
-                    <IngredientDetails />
-                </Modal>)}
+            </div>            
         </div>
     );
 }

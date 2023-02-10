@@ -1,13 +1,13 @@
 
 import { AppDispatch, AppThunk } from '../services/types';
-import { ActionCreatorWithoutPayload, createAction } from '@reduxjs/toolkit';
+import { ActionCreatorWithoutPayload, ActionCreatorWithPayload, createAction } from '@reduxjs/toolkit';
 
 export function withPayloadType<T>() {
   return (t: T) => ({ payload: t })
 }
 
 export const apiActionCreator = <T, T2>(apiPrefix: string, apiCall: (params: T2) => Promise<T>,
-  afterSuccessDispatch: (ActionCreatorWithoutPayload<string>) | null = null,
+  afterSuccessDispatch: (ActionCreatorWithoutPayload<string>) | (ActionCreatorWithPayload<T>) | null = null,
   afterSuccessData: ((data: T) => void) | null = null) => {
   const apiRequestAction = createAction(`${apiPrefix}/request`);
   const apiSuccessAction = createAction(`${apiPrefix}/success`, withPayloadType<T>());
@@ -18,11 +18,16 @@ export const apiActionCreator = <T, T2>(apiPrefix: string, apiCall: (params: T2)
       dispatch(apiRequestAction());
       const data = await apiCall(params);
       dispatch(apiSuccessAction(data));
-      
-      if (afterSuccessDispatch)
-        dispatch(afterSuccessDispatch());
+
       if (afterSuccessData)
         afterSuccessData(data);
+
+      if (afterSuccessDispatch) {
+        if (afterSuccessDispatch as ActionCreatorWithoutPayload<string>)
+          dispatch((afterSuccessDispatch as ActionCreatorWithoutPayload<string>)());
+        if (afterSuccessDispatch as ActionCreatorWithPayload<T>)
+          dispatch((afterSuccessDispatch as ActionCreatorWithPayload<T>)(data));
+      }
 
     } catch (error: any) {
       dispatch(apiFailedAction(error.message));

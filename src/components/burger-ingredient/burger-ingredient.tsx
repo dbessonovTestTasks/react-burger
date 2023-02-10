@@ -4,6 +4,7 @@ import styles from './burger-ingredient.module.css';
 import { useDrag } from 'react-dnd';
 import { useDispatch } from '../hooks/use-dispatch';
 import { AddPopupIngredientsAction } from '../../services/actions/popuped-ingredient';
+import { Link, useLocation } from 'react-router-dom';
 
 interface IProps {
     ingredient: IBurgerIngredient;
@@ -12,6 +13,7 @@ interface IProps {
 
 function BurgerIngredient(props: IProps) {
     const dispatch = useDispatch();
+    const location = useLocation();
 
     const [{ opacity }, dragRef] = useDrag({
         type: 'burgerIngredient',
@@ -22,7 +24,7 @@ function BurgerIngredient(props: IProps) {
     });
 
     return (
-        <>
+        <Link to={`/ingredients/${props.ingredient._id}`} state={{ background: location }}>
             <div className={`${styles.ingredientCard} mt-6 ml-4 mb-2 mr-2`} style={{ opacity }}
                  onClick={()=>{dispatch(AddPopupIngredientsAction(props.ingredient))}} ref={dragRef} draggable>
                 {props.count > 0
@@ -37,7 +39,7 @@ function BurgerIngredient(props: IProps) {
                     <p>{props.ingredient.name}</p>
                 </div>
             </div>
-        </>
+        </Link>
     );
 }
 

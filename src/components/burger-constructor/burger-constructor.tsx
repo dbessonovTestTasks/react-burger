@@ -1,4 +1,4 @@
-import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-constructor.module.css';
 import BunConstructor from '../bun-constructor/bun-constructor';
 import { ingridientTypes } from '../../utils/common-types/constants';
@@ -10,16 +10,20 @@ import { useDispatch } from '../hooks/use-dispatch';
 import { useDrop } from "react-dnd";
 import { AddIngredientToBurgerAction, ChangeBunAction, ChangeIngredientsOrderAction } from '../../services/actions/constructor-ingredients';
 import { IExchangeElements, TBurgerIngredient, TConstructorIngredient } from '../../utils/common-types/interfaces';
-import { createOrder } from '../../services/actions/api-actions';
+import { createOrderAction } from '../../services/api-actions-generation';
 import BurgerConstructorElement from '../burger-constructor-element/burger-constructor-element';
 import Modal from '../modal/modal';
+import LoaderButton from '../loader-button/loader-button';
+import { useNavigate } from 'react-router-dom';
 
 function BurgerConstructor() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [modalVisible, handleOpenModal, handleCloseModal] = useModalControl();
-    const { request: orderRequest, answer: order } = useSelector(store => store.apiOrder);
+    const { request: orderRequest, answer: order, failed: orderFailed, errorMessage: orderErrorMessage } = useSelector(store => store.apiOrder);
     const { bun, notBunIngredients } = useSelector(store => store.constructorIngredients);
+    const isLogged = useSelector(store => store.internalUser.isLogged);
 
     const [, dropTarget] = useDrop({
         accept: "burgerIngredient",
@@ -31,8 +35,12 @@ function BurgerConstructor() {
     });
 
     const handleCreateOrder = () => {
-        dispatch(createOrder([...notBunIngredients.map(o => o._id), bun!._id]));
-        handleOpenModal();
+        if (!isLogged)
+            navigate('/login');
+        else {
+            dispatch(createOrderAction([...notBunIngredients.map(o => o._id), bun!._id]));
+            handleOpenModal();
+        }
     }
 
     const moveIngredient = useCallback((dragIndex: number, hoverIndex: number) => {
@@ -54,12 +62,9 @@ function BurgerConstructor() {
             <div className={`${styles.totalContainer} ${(!bun && styles.hiddenContainer)}`}>
                 <span className='text text_type_digits-medium mr-2'>{totalSum}</span>
                 <CurrencyIcon type='primary' />
-                <Button htmlType='button' type='primary' size='medium' extraClass='ml-10' onClick={handleCreateOrder} disabled={orderRequest}>
-                    {orderRequest ? (<div>
-                        <div className={styles.ldsHourglass}></div>
-                        <span>Оформление заказа...</span>
-                    </div>) : ("Оформить заказ")}
-                </Button>
+                <LoaderButton htmlType='button' extraClass='ml-10' onClick={handleCreateOrder}
+                    isDisabled={orderRequest} loaderText='Оформление заказа...' text='Оформить заказ'
+                    errorText={orderFailed ? orderErrorMessage : ''} />
             </div>
         </div>
         {modalVisible && !!order &&

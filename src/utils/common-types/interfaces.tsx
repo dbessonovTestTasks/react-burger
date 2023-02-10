@@ -58,14 +58,23 @@ export interface IRegisterUserParams {
   name: string;
 }
 
-export interface IUserAuthInfo {
-  success: boolean,
+export interface IUserInfo {
+  success: boolean;
   user: {
-    email: string,
-    name: string
-  },
-  accessToken: string,
-  refreshToken: string
+    email: string;
+    name: string;
+  }
+}
+
+export interface IUserAuthInfo extends IUserInfo{
+  accessToken: string;
+  refreshToken: string;
+}
+
+export interface IRefreshTokensInfo{
+  success: boolean;
+  accessToken: string;
+  refreshToken: string;
 }
 
 export interface ILoginUserParams {
