@@ -1,5 +1,5 @@
 import { EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { SyntheticEvent, useEffect, useState } from 'react';
+import { FormEvent,  useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './user-forgot-password.module.css';
 import { useNavigate } from "react-router-dom";
@@ -22,7 +22,7 @@ function UserForgotPassword() {
            navigate('/reset-password');
     }, [forgotPasswordStore.answer?.success, isTryResetPassword, navigate]);
 
-    const handleForgotPassword = (e: SyntheticEvent) => {
+    const handleForgotPassword = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!!email)
            {

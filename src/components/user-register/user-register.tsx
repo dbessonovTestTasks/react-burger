@@ -1,5 +1,5 @@
 import { Input, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { SyntheticEvent, useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './user-register.module.css';
 import { useNavigate } from "react-router-dom";
@@ -22,7 +22,7 @@ function UserRegister() {
             navigate('/login');
     }, [regUser.answer?.success, navigate]);
 
-    const handleRegister = (e: SyntheticEvent) => {
+    const handleRegister = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch(registerUserAction({
             email: email,

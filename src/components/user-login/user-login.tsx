@@ -1,10 +1,10 @@
 import { EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { SyntheticEvent, useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styles from './user-login.module.css';
 import { useNavigate } from "react-router-dom";
 import { useSelector } from '../hooks/use-selector';
-import { getUserAction, loginAction } from '../../services/api-actions-generation';
+import { loginAction } from '../../services/api-actions-generation';
 import { useDispatch } from '../hooks/use-dispatch';
 import LoaderButton from '../loader-button/loader-button';
 
@@ -16,7 +16,7 @@ function UserLogin() {
     const { state } = useLocation();
     const dispatch = useDispatch();
 
-    const handleLogin = (e: SyntheticEvent) => {
+    const handleLogin = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch(loginAction({ email, password }));
     };

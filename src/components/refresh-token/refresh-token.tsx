@@ -1,5 +1,4 @@
-import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { SyntheticEvent, useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
 import { useSelector } from '../hooks/use-selector';
 import { useDispatch } from '../hooks/use-dispatch';
 import LoaderButton from '../loader-button/loader-button';

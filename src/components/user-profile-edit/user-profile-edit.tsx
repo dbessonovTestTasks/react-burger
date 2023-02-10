@@ -1,6 +1,5 @@
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { SyntheticEvent, useEffect, useState } from 'react';
-import styles from './user-profile-edit.module.css';
+import { FormEvent, useEffect, useState } from 'react';
 import { useSelector } from '../hooks/use-selector';
 import { useDispatch } from '../hooks/use-dispatch';
 import LoaderButton from '../loader-button/loader-button';
@@ -8,6 +7,7 @@ import { getUserAction, patchUserAction } from '../../services/api-actions-gener
 import AppError from '../app-error/app-error';
 import RefreshToken from '../refresh-token/refresh-token';
 import NameInput from '../name-input/name-input';
+import { useForm } from '../hooks/use-form';
 
 function UserProfileEdit() {
     const dispatch = useDispatch();
@@ -18,15 +18,12 @@ function UserProfileEdit() {
     const internalUser = useSelector(store => store.internalUser);
 
     const [infoIsChanged, setInfoIsChanged] = useState(false);
-    const [userName, setUserName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const { values: userForm, handleChange: handleUserFormChange, setValues: setUserFormValues }
+        = useForm({ userName: '', email: '', password: '' });
 
     const setDefaultUserInfo = () => {
+        setUserFormValues({ userName: internalUser.userInfo?.user.name ?? '', email: internalUser.userInfo?.user.email ?? '', password: '' })
         setInfoIsChanged(false);
-        setUserName(internalUser.userInfo?.user.name ?? '');
-        setEmail(internalUser.userInfo?.user.email ?? '');
-        setPassword('');
     }
 
     const getUser = () => { dispatch(getUserAction()); };
@@ -51,33 +48,32 @@ function UserProfileEdit() {
     }, [patchUserRequest]);
 
     //const [debug_expireToken, debug_setExpireToken] = useState(true);    
-    const handlePatchUser = (e: SyntheticEvent | null) => {
+    const handlePatchUser = (e: FormEvent<HTMLFormElement> | null) => {
         e?.preventDefault();
         // if (debug_expireToken) {
         //     setTokens('Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZTBjMTA5OTM2YjE3MDAxYmU1OWJhMSIsImlhdCI6MTY3NTk1MjM4MSwiZXhwIjoxNjc1OTUzNTgxfQ.FnWbqNSTeWRf7TfNXoM_6drpa-UjMeLV4yKpZJiL9Go', localStorage.getItem('refreshToken')!);
         //     debug_setExpireToken(false);
         // }
-        dispatch(patchUserAction({ email, password, name: userName }));
+        dispatch(patchUserAction({ email: userForm.email, password: userForm.password, name: userForm.userName }));
     }
-
 
     const formSubmit = () => {
         return (<form onSubmit={handlePatchUser} className='mb-20'>
             <NameInput
-                onChange={e => onInfoChange(() => setUserName(e.target.value))}
-                value={userName}
+                onChange={e => onInfoChange(() => handleUserFormChange(e))}
+                value={userForm.userName}
                 name={'userName'}
                 size={'default'}
                 extraClass='mb-6' />
             <EmailInput
-                onChange={e => onInfoChange(() => setEmail(e.target.value))}
-                value={email}
+                onChange={e => onInfoChange(() => handleUserFormChange(e))}
+                value={userForm.email}
                 name={'email'}
                 isIcon={true}
                 extraClass='mb-6' />
             <PasswordInput
-                onChange={e => onInfoChange(() => setPassword(e.target.value))}
-                value={password}
+                onChange={e => onInfoChange(() => handleUserFormChange(e))}
+                value={userForm.password}
                 name={'password'}
                 icon='EditIcon'
                 extraClass='mb-6' />

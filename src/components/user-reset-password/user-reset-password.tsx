@@ -1,5 +1,5 @@
 import { Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { SyntheticEvent, useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { SetUserPasswordReseted } from '../../services/actions/internal-user';
 import { resetPassAction } from '../../services/api-actions-generation';
@@ -28,7 +28,7 @@ function UserResetPassword() {
         }
     }, [resetPasswordStore.answer?.success, navigate]);
 
-    const handleSavePassword = (e: SyntheticEvent) => {
+    const handleSavePassword = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch(resetPassAction({ password: password, token: letterCode }));
     };
@@ -52,7 +52,7 @@ function UserResetPassword() {
                 size={'default'}
                 extraClass='mb-6'
             />
-            <LoaderButton htmlType='submit' onClick={handleSavePassword} isDisabled={resetPasswordStore.request} loaderText={'Сохранение...'} text={'Сохранить'}
+            <LoaderButton htmlType='submit' isDisabled={resetPasswordStore.request} loaderText={'Сохранение...'} text={'Сохранить'}
                 errorText={resetPasswordStore.failed ? resetPasswordStore.errorMessage : ''} />
         </form>
         <p className='text text_type_main-default text_color_inactive mb4'>Вспомнили пароль? <Link className={styles.link} to='/login'>Войти</Link></p>

@@ -4,19 +4,19 @@ import styles from './app-header.module.css';
 import { matchPath, useLocation } from 'react-router-dom';
 
 function AppHeader() {
-    const { pathname } = useLocation();    
+    const { pathname } = useLocation();
     const ordersIsInactive = !matchPath(pathname, '/orders');
     const profileIsInactive = !matchPath(pathname, '/profile');
     const constructorIsInactive = !matchPath(pathname, '/');
 
-    const iconType = (isInactive:boolean)=>isInactive?'secondary':'primary';
-    const colorType = (isInactive:boolean)=>isInactive?'text_color_inactive':'';
+    const iconType = (isInactive: boolean) => isInactive ? 'secondary' : 'primary';
+    const colorType = (isInactive: boolean) => isInactive ? 'text_color_inactive' : '';
 
     return (
         <header>
             <div className={styles.appHeader}>
                 <div className={styles.logo}>
-                    <Logo />
+                    <Link to='/'><Logo /></Link>
                 </div>
                 <nav className={styles.navbar}>
                     <div className='pl-5 pr-7 pt-4 pb-4'>
