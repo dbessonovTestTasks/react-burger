@@ -2,8 +2,9 @@ import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-dev
 import { Link } from 'react-router-dom';
 import styles from './app-header.module.css';
 import { matchPath, useLocation } from 'react-router-dom';
+import { FC } from 'react';
 
-function AppHeader() {
+export const AppHeader: FC = () => {
     const { pathname } = useLocation();
     const ordersIsInactive = !matchPath(pathname, '/orders');
     const profileIsInactive = !matchPath(pathname, '/profile');
@@ -36,5 +37,3 @@ function AppHeader() {
         </header>
     );
 }
-
-export default AppHeader

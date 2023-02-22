@@ -1,6 +1,6 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-constructor-element.module.css';
-import { useRef } from 'react';
+import { FC, useRef } from 'react';
 import { useDispatch } from '../hooks/use-dispatch';
 import { useDrag, useDrop } from "react-dnd";
 import { RemoveIngredientFromBurgerAction } from '../../services/actions/constructor-ingredients';
@@ -13,7 +13,7 @@ interface IProps {
     moveIngredient: (dragIndex: number, hoverIndex: number) => void
 }
 
-function BurgerConstructorElement(props: IProps) {
+export const BurgerConstructorElement: FC<IProps> = (props) => {
     const dispatch = useDispatch();
     const ingredient = props.ingredient;
 
@@ -79,5 +79,3 @@ function BurgerConstructorElement(props: IProps) {
     </>
     );
 }
-
-export default BurgerConstructorElement

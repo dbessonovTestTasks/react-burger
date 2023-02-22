@@ -1,19 +1,18 @@
 import styles from './app.module.css';
-import AppHeader from '../app-header/app-header';
-import AppError from '../app-error/app-error';
+import { AppHeader } from '../app-header/app-header';
+import { AppError } from '../app-error/app-error';
 import { useSelector } from '../hooks/use-selector';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { HomePage, NotFoundPage, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage, ProfilePage } from '../../pages';
 import { LogoutPage } from '../../pages/logout';
-import ProtectedRouteElement from '../protected-route-element/protected-route-element';
-import OnlyUnAuthRouteElement from '../only-unauth-route-element/only-unauth-route-element';
-import Modal from '../modal/modal';
-import IngredientDetails from '../ingredient-details/ingredient-details';
+import { ProtectedRouteElement } from '../protected-route-element/protected-route-element';
+import { OnlyUnAuthRouteElement } from '../only-unauth-route-element/only-unauth-route-element';
+import { Modal } from '../modal/modal';
+import { IngredientDetails } from '../ingredient-details/ingredient-details';
 import { useEffect } from 'react';
 import { loadIngredientsAction } from '../../services/api-actions-generation';
 import { useDispatch } from '../hooks/use-dispatch';
-import UserProfileEdit from '../user-profile-edit/user-profile-edit';
-
+import { UserProfileEdit } from '../user-profile-edit/user-profile-edit';
 
 function App() {
   const { failed: ingredientsFailed, errorMessage: ingredientsErrorMessage } = useSelector(store => store.apiIngredients);

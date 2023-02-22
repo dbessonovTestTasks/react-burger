@@ -1,16 +1,15 @@
 import { TBurgerIngredient } from '../../utils/common-types/interfaces';
-import BurgerIngredient from '../burger-ingredient/burger-ingredient';
-import TabsIngredients from '../tabs-ingredients/tabs-ingredients';
+import { BurgerIngredient } from '../burger-ingredient/burger-ingredient';
+import { TabsIngredients } from '../tabs-ingredients/tabs-ingredients';
 import styles from './burger-ingredients.module.css';
 import { ingridientTypes, tabList } from '../../utils/common-types/constants';
-import { useMemo, useEffect } from 'react';
+import { useMemo, useEffect, FC } from 'react';
 import { useSelector } from '../hooks/use-selector';
 import { useDispatch } from '../hooks/use-dispatch';
-import { loadIngredientsAction } from '../../services/api-actions-generation';
 import { useNavigationBlock } from '../hooks/use-navigation-block';
 import { ChangeActiveTabAction } from '../../services/actions/tabs-ingredients';
 
-function BurgerIngredients() {
+export const BurgerIngredients: FC = () => {
     const dispatch = useDispatch();
 
     const [bunPartRef, bunScroll, isBunVisible] = useNavigationBlock();
@@ -60,5 +59,3 @@ function BurgerIngredients() {
         </div>
     );
 }
-
-export default BurgerIngredients

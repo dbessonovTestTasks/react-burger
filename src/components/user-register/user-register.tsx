@@ -1,14 +1,14 @@
 import { Input, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { FormEvent, useEffect, useState } from 'react';
+import { FC, FormEvent, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './user-register.module.css';
 import { useNavigate } from "react-router-dom";
 import { useSelector } from '../hooks/use-selector';
 import { registerUserAction } from '../../services/api-actions-generation';
 import { useDispatch } from '../hooks/use-dispatch';
-import LoaderButton from '../loader-button/loader-button';
+import { LoaderButton } from '../loader-button/loader-button';
 
-function UserRegister() {
+export const UserRegister: FC = () => {
     const navigate = useNavigate();
     const [userName, setUserName] = useState('');
     const [email, setEmail] = useState('');
@@ -63,5 +63,3 @@ function UserRegister() {
         <p className='text text_type_main-default text_color_inactive mb4'>Уже зарегистрированы? <Link className={styles.link} to='/login'>Войти</Link></p>
     </div>);
 }
-
-export default UserRegister;

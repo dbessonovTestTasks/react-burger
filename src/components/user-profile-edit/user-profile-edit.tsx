@@ -1,15 +1,15 @@
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { FormEvent, useEffect, useState } from 'react';
+import { FC, FormEvent, useEffect, useState } from 'react';
 import { useSelector } from '../hooks/use-selector';
 import { useDispatch } from '../hooks/use-dispatch';
-import LoaderButton from '../loader-button/loader-button';
+import { LoaderButton } from '../loader-button/loader-button';
 import { getUserAction, patchUserAction } from '../../services/api-actions-generation';
-import AppError from '../app-error/app-error';
-import RefreshToken from '../refresh-token/refresh-token';
-import NameInput from '../name-input/name-input';
+import { AppError } from '../app-error/app-error';
+import { RefreshToken } from '../refresh-token/refresh-token';
+import { NameInput } from '../name-input/name-input';
 import { useForm } from '../hooks/use-form';
 
-function UserProfileEdit() {
+export const UserProfileEdit: FC = () => {
     const dispatch = useDispatch();
 
     const { request: getUserRequest, failed: getUserFailed, errorMessage: getUserErrorMessage } = useSelector(store => store.getUser);
@@ -31,11 +31,13 @@ function UserProfileEdit() {
     useEffect(() => {
         if (internalUser.isLogged && internalUser.userInfo == null)
             getUser();
-    }, []);
+    // eslint-disable-next-line      
+    }, []);//проверям при монтировании
 
     useEffect(() => {
         setDefaultUserInfo();
-    }, [internalUser.userInfo?.user]);
+    // eslint-disable-next-line
+    }, [internalUser.userInfo?.user]);//при изменении пользователя
 
     const onInfoChange = (action: () => void) => {
         setInfoIsChanged(true);
@@ -45,7 +47,8 @@ function UserProfileEdit() {
     useEffect(() => {
         if (!patchUserRequest && !patchUserFailed)
             setInfoIsChanged(false);
-    }, [patchUserRequest]);
+    // eslint-disable-next-line
+    }, [patchUserRequest]);//при изменении статуса запроса
 
     //const [debug_expireToken, debug_setExpireToken] = useState(true);    
     const handlePatchUser = (e: FormEvent<HTMLFormElement> | null) => {
@@ -95,5 +98,3 @@ function UserProfileEdit() {
                 errorText={getUserFailed ? getUserErrorMessage : ''} />
             : formSubmit()));
 }
-
-export default UserProfileEdit;
