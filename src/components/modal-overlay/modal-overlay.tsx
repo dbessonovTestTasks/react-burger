@@ -1,11 +1,10 @@
-import  styles from './modal-overlay.module.css';
+import { FC } from 'react';
+import styles from './modal-overlay.module.css';
 
-interface IProps {   
-    onClick: () => void;    
+interface IProps {
+    onClick: () => void;
 }
 
-function ModalOverlay(props: IProps){
-    return (<div className={styles.overlay} onClick={props.onClick}/>);
+export const ModalOverlay: FC<IProps> = (props) => {
+    return (<div className={styles.overlay} onClick={props.onClick} />);
 }
-
-export default ModalOverlay

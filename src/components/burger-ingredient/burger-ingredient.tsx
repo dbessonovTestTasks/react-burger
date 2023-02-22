@@ -5,13 +5,14 @@ import { useDrag } from 'react-dnd';
 import { useDispatch } from '../hooks/use-dispatch';
 import { AddPopupIngredientsAction } from '../../services/actions/popuped-ingredient';
 import { Link, useLocation } from 'react-router-dom';
+import { FC } from 'react';
 
 interface IProps {
     ingredient: IBurgerIngredient;
     count: number;
 }
 
-function BurgerIngredient(props: IProps) {
+export const BurgerIngredient: FC<IProps> = (props) => {
     const dispatch = useDispatch();
     const location = useLocation();
 
@@ -42,5 +43,3 @@ function BurgerIngredient(props: IProps) {
         </Link>
     );
 }
-
-export default BurgerIngredient

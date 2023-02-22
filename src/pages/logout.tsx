@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useCallback, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from '../components/hooks/use-dispatch';
 import { useSelector } from '../components/hooks/use-selector';
-import LoaderButton from '../components/loader-button/loader-button';
+import { LoaderButton } from '../components/loader-button/loader-button';
 import { logoutAction } from '../services/api-actions-generation';
 
 export function LogoutPage() {
@@ -12,8 +12,8 @@ export function LogoutPage() {
     const userIsLogged = useSelector(store => store.internalUser.isLogged);
     const dispatch = useDispatch();
 
-    const exit = () => dispatch(logoutAction());
-    useEffect(() => exit, [dispatch]);
+    const exit = useCallback(() => dispatch(logoutAction()), [dispatch]);
+    useEffect(() => exit, [exit]);
 
     useEffect(() => {
         if (!userIsLogged) {

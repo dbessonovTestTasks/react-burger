@@ -4,6 +4,7 @@ import { useSelector } from '../hooks/use-selector';
 import { useDispatch } from '../hooks/use-dispatch';
 import { ChangeActiveTabAction } from '../../services/actions/tabs-ingredients';
 import { tabList } from '../../utils/common-types/constants';
+import { FC } from 'react';
 
 interface IProps {
     bunScroll: () => void;
@@ -11,7 +12,7 @@ interface IProps {
     mainScroll: () => void;
 }
 
-function TabsIngredients(props: IProps) {
+export const TabsIngredients: FC<IProps> = (props) => {
     const dispatch = useDispatch();
     const { activeTabName } = useSelector(store => store.tabsIngredient);
 
@@ -34,5 +35,3 @@ function TabsIngredients(props: IProps) {
         </div>
     )
 }
-
-export default TabsIngredients

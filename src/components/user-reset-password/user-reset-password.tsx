@@ -1,14 +1,14 @@
 import { Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { FormEvent, useEffect, useState } from 'react';
+import { FC, FormEvent, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { SetUserPasswordReseted } from '../../services/actions/internal-user';
 import { resetPassAction } from '../../services/api-actions-generation';
 import { useDispatch } from '../hooks/use-dispatch';
 import { useSelector } from '../hooks/use-selector';
-import LoaderButton from '../loader-button/loader-button';
+import { LoaderButton } from '../loader-button/loader-button';
 import styles from './user-reset-password.module.css';
 
-function UserResetPassword() {
+export const UserResetPassword: FC = () => {
     const navigate = useNavigate();
     const [letterCode, setLetterCode] = useState('');
     const [password, setPassword] = useState('');
@@ -19,14 +19,14 @@ function UserResetPassword() {
     useEffect(() => {
         if (!resetPasswordStore.answer?.success && !isTryResetPassword)
             navigate('/forgot-password');
-    }, [resetPasswordStore.answer?.success, isTryResetPassword, navigate]);
+    }, [resetPasswordStore.answer?.success, isTryResetPassword, dispatch, navigate]);
 
     useEffect(() => {
         if (resetPasswordStore.answer?.success) {
             dispatch(SetUserPasswordReseted());
             navigate('/login');
         }
-    }, [resetPasswordStore.answer?.success, navigate]);
+    }, [resetPasswordStore.answer?.success, dispatch, navigate]);
 
     const handleSavePassword = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -58,5 +58,3 @@ function UserResetPassword() {
         <p className='text text_type_main-default text_color_inactive mb4'>Вспомнили пароль? <Link className={styles.link} to='/login'>Войти</Link></p>
     </div>);
 }
-
-export default UserResetPassword;

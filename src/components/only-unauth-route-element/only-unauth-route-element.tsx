@@ -1,11 +1,12 @@
-import { Navigate, useLocation } from "react-router-dom";
+import { FC } from "react";
+import { Navigate } from "react-router-dom";
 import { useSelector } from "../hooks/use-selector";
 
 interface IProps {
     element: React.ReactElement<any>
 }
 
-export default function OnlyUnAuthRouteElement(props: IProps) {
+export const OnlyUnAuthRouteElement: FC<IProps> = (props) => {
     const isLogged = useSelector((store) => store.internalUser.isLogged);
     if (isLogged)
         return (<Navigate to='/' replace />);

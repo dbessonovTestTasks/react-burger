@@ -1,22 +1,22 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-constructor.module.css';
-import BunConstructor from '../bun-constructor/bun-constructor';
+import { BunConstructor } from '../bun-constructor/bun-constructor';
 import { ingridientTypes } from '../../utils/common-types/constants';
-import OrderDetails from '../order-details/order-details';
+import { OrderDetails } from '../order-details/order-details';
 import useModalControl from '../hooks/use-modal-control';
-import { useMemo, useCallback } from 'react';
+import { useMemo, useCallback, FC } from 'react';
 import { useSelector } from '../hooks/use-selector';
 import { useDispatch } from '../hooks/use-dispatch';
 import { useDrop } from "react-dnd";
 import { AddIngredientToBurgerAction, ChangeBunAction, ChangeIngredientsOrderAction } from '../../services/actions/constructor-ingredients';
 import { IExchangeElements, TBurgerIngredient, TConstructorIngredient } from '../../utils/common-types/interfaces';
 import { createOrderAction } from '../../services/api-actions-generation';
-import BurgerConstructorElement from '../burger-constructor-element/burger-constructor-element';
-import Modal from '../modal/modal';
-import LoaderButton from '../loader-button/loader-button';
+import { BurgerConstructorElement } from '../burger-constructor-element/burger-constructor-element';
+import { Modal } from '../modal/modal';
+import { LoaderButton } from '../loader-button/loader-button';
 import { useNavigate } from 'react-router-dom';
 
-function BurgerConstructor() {
+export const BurgerConstructor: FC = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -74,5 +74,3 @@ function BurgerConstructor() {
     </>
     );
 }
-
-export default BurgerConstructor

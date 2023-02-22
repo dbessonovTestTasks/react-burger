@@ -1,8 +1,8 @@
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { SyntheticEvent } from 'react';
+import { FC, SyntheticEvent } from 'react';
 import styles from './loader-button.module.css';
 
-interface Props extends React.PropsWithChildren<Omit<React.HTMLProps<HTMLButtonElement>, 'type' | 'size'>> {
+interface IProps extends React.PropsWithChildren<Omit<React.HTMLProps<HTMLButtonElement>, 'type' | 'size'>> {
     onClick?: (() => void) | ((e: SyntheticEvent) => void);
     extraClass?: string;
     htmlType: 'button' | 'submit' | 'reset';
@@ -12,7 +12,7 @@ interface Props extends React.PropsWithChildren<Omit<React.HTMLProps<HTMLButtonE
     errorText?: string;
 }
 
-function LoaderButton({ onClick, extraClass, htmlType, isDisabled, loaderText, text, errorText }: Props) {
+export const LoaderButton: FC<IProps> = ({ onClick, extraClass, htmlType, isDisabled, loaderText, text, errorText }) => {
     return (
         <>
             {!!errorText && (
@@ -32,5 +32,3 @@ function LoaderButton({ onClick, extraClass, htmlType, isDisabled, loaderText, t
         </>
     );
 }
-
-export default LoaderButton;

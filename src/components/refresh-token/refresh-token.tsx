@@ -1,12 +1,12 @@
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useSelector } from '../hooks/use-selector';
 import { useDispatch } from '../hooks/use-dispatch';
-import LoaderButton from '../loader-button/loader-button';
+import { LoaderButton } from '../loader-button/loader-button';
 import { refreshTokensAction } from '../../services/api-actions-generation';
 
 interface IProps { repeatableAction: () => void }
 
-function RefreshToken(props: IProps) {
+export const RefreshToken: FC<IProps> = (props) => {
     const dispatch = useDispatch();
 
     const refreshTokensStore = useSelector(store => store.refreshTokens);
@@ -22,5 +22,3 @@ function RefreshToken(props: IProps) {
         loaderText={'Обновление токенов доступа...'} text={'Обновить токены доступа'}
         errorText={refreshTokensStore.failed ? refreshTokensStore.errorMessage : ''} />);
 }
-
-export default RefreshToken;

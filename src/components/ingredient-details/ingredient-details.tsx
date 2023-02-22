@@ -1,8 +1,9 @@
 import styles from './ingredient-details.module.css';
 import { useSelector } from '../hooks/use-selector';
 import { useParams } from 'react-router-dom';
+import { FC } from 'react';
 
-function IngredientDetails() {
+export const IngredientDetails: FC = () => {
     const { id } = useParams();
     const ingredient = useSelector(store => store.apiIngredients.answer?.data.find(o => o._id === id));
 
@@ -33,6 +34,3 @@ function IngredientDetails() {
         </div>
     );
 }
-
-export default IngredientDetails
-

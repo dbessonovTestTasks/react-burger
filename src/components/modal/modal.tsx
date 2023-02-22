@@ -1,20 +1,19 @@
-import  styles from './modal.module.css';
-import {CloseIcon} from '@ya.praktikum/react-developer-burger-ui-components';
+import styles from './modal.module.css';
+import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ReactDOM from 'react-dom';
-import ModalOverlay from '../modal-overlay/modal-overlay';
-import {useEffect} from 'react';
+import { ModalOverlay } from '../modal-overlay/modal-overlay';
+import { FC, useEffect } from 'react';
 
-interface IProps {    
-    title?: string;   
+interface IProps {
+    title?: string;
     onClose: () => void;
     children?: React.ReactNode;
 }
 
-function Modal(props: IProps){
+export const Modal: FC<IProps> = ({ title, onClose, children }) => {
     const modalRoot = document.getElementById("react-modals");
 
-    const {title, onClose, children} = props;
-    useEffect( () => {        
+    useEffect(() => {
         const onKeyDown = (e: KeyboardEvent) => {
             e.key === "Escape" && onClose();
         }
@@ -25,22 +24,20 @@ function Modal(props: IProps){
         };
     }, [onClose]);
 
-    return ReactDOM.createPortal(            
-            <>
-                <div className={`${styles.modal} pl-10 pr-10 pt-10 pb-15`}>
-                    <div className={styles.header}>
-                        <span className='text text_type_main-large'>{title}</span>
-                        <div>
-                            <CloseIcon type='primary' onClick={onClose}/>
-                        </div>                    
+    return ReactDOM.createPortal(
+        <>
+            <div className={`${styles.modal} pl-10 pr-10 pt-10 pb-15`}>
+                <div className={styles.header}>
+                    <span className='text text_type_main-large'>{title}</span>
+                    <div>
+                        <CloseIcon type='primary' onClick={onClose} />
                     </div>
-                    <div className={styles.body}>
-                        {children}
-                    </div>                
-                </div>  
-                <ModalOverlay onClick={onClose}/>
-            </>
-    , modalRoot!);
+                </div>
+                <div className={styles.body}>
+                    {children}
+                </div>
+            </div>
+            <ModalOverlay onClick={onClose} />
+        </>
+        , modalRoot!);
 }
-
-export default Modal

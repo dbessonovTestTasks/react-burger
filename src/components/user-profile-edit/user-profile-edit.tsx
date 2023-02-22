@@ -1,15 +1,15 @@
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { FormEvent, useEffect, useState } from 'react';
+import { FC, FormEvent, useEffect, useState } from 'react';
 import { useSelector } from '../hooks/use-selector';
 import { useDispatch } from '../hooks/use-dispatch';
-import LoaderButton from '../loader-button/loader-button';
+import { LoaderButton } from '../loader-button/loader-button';
 import { getUserAction, patchUserAction } from '../../services/api-actions-generation';
-import AppError from '../app-error/app-error';
-import RefreshToken from '../refresh-token/refresh-token';
-import NameInput from '../name-input/name-input';
+import { AppError } from '../app-error/app-error';
+import { RefreshToken } from '../refresh-token/refresh-token';
+import { NameInput } from '../name-input/name-input';
 import { useForm } from '../hooks/use-form';
 
-function UserProfileEdit() {
+export const UserProfileEdit: FC = () => {
     const dispatch = useDispatch();
 
     const { request: getUserRequest, failed: getUserFailed, errorMessage: getUserErrorMessage } = useSelector(store => store.getUser);
@@ -95,5 +95,3 @@ function UserProfileEdit() {
                 errorText={getUserFailed ? getUserErrorMessage : ''} />
             : formSubmit()));
 }
-
-export default UserProfileEdit;

@@ -1,11 +1,12 @@
 import styles from './order-details.module.css';
 import orderDetailOkImage from '../../images/orderDetailOk.svg'
+import { FC } from 'react';
 
 interface IProps {
     orderNum?: string;
 }
 
-function OrderDetails(props: IProps) {
+export const OrderDetails: FC<IProps> = (props) => {
     return (
         <div className={styles.centerText}>
             <p className={`${styles.glow} text text_type_digits-large mb-8`}>{props.orderNum}</p>
@@ -18,5 +19,3 @@ function OrderDetails(props: IProps) {
         </div>
     );
 }
-
-export default OrderDetails
