@@ -6,7 +6,7 @@ import { refreshTokensAction } from '../../services/api-actions-generation';
 
 interface IProps { repeatableAction: () => void }
 
-export const RefreshToken: FC<IProps> = (props) => {
+export const RefreshToken: FC<IProps> = ({repeatableAction}) => {
     const dispatch = useDispatch();
 
     const refreshTokensStore = useSelector(store => store.refreshTokens);
@@ -14,10 +14,13 @@ export const RefreshToken: FC<IProps> = (props) => {
     
     useEffect(() => {
         if (refreshTokensStore.answer?.success)
-            props.repeatableAction();
-    }, [refreshTokensStore.answer?.success]);
+            repeatableAction();
+    }, [refreshTokensStore.answer?.success, repeatableAction]);
 
-    useEffect(() => refreshTokens, []);
+    useEffect(() => refreshTokens 
+    // eslint-disable-next-line
+    ,[]);//при монтировании
+
     return (<LoaderButton htmlType='button' isDisabled={refreshTokensStore.request} onClick={refreshTokens}
         loaderText={'Обновление токенов доступа...'} text={'Обновить токены доступа'}
         errorText={refreshTokensStore.failed ? refreshTokensStore.errorMessage : ''} />);

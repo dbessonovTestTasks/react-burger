@@ -31,11 +31,13 @@ export const UserProfileEdit: FC = () => {
     useEffect(() => {
         if (internalUser.isLogged && internalUser.userInfo == null)
             getUser();
-    }, []);
+    // eslint-disable-next-line      
+    }, []);//проверям при монтировании
 
     useEffect(() => {
         setDefaultUserInfo();
-    }, [internalUser.userInfo?.user]);
+    // eslint-disable-next-line
+    }, [internalUser.userInfo?.user]);//при изменении пользователя
 
     const onInfoChange = (action: () => void) => {
         setInfoIsChanged(true);
@@ -45,7 +47,8 @@ export const UserProfileEdit: FC = () => {
     useEffect(() => {
         if (!patchUserRequest && !patchUserFailed)
             setInfoIsChanged(false);
-    }, [patchUserRequest]);
+    // eslint-disable-next-line
+    }, [patchUserRequest]);//при изменении статуса запроса
 
     //const [debug_expireToken, debug_setExpireToken] = useState(true);    
     const handlePatchUser = (e: FormEvent<HTMLFormElement> | null) => {

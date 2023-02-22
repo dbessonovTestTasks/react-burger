@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 import { useSelector } from "../hooks/use-selector";
 
 interface IProps {
-    element: React.ReactElement<any>
+    element: React.ReactElement
 }
 
 export const OnlyUnAuthRouteElement: FC<IProps> = (props) => {

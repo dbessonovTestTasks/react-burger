@@ -25,8 +25,8 @@ export const UserLogin: FC = () => {
     useEffect(() => {
         if (userIsLogged)
             navigate(!!state?.redirectTo && state?.redirectTo !== '/profile/logout' ? state.redirectTo : '/');
-
-    }, [userIsLogged, navigate, dispatch]);
+    // eslint-disable-next-line
+    }, [userIsLogged, navigate, dispatch]);//при смене userIsLogged
 
     return (
         <div className={styles.container}>
