@@ -29,7 +29,7 @@ const request = async (url: string, options?: RequestInit, useToken?: boolean) =
   if (!!useToken && getCookie('accessToken') == null)
     throw new Error('Token not found in local storage');
 
-  const res = await fetch(url, !!useToken ? { ...options, headers: { ...options?.headers, Authorization: getCookie('accessToken')! } } : options);
+  const res = await fetch(url, !!useToken ? { ...options, headers: { ...options?.headers, Authorization: `Bearer ${getCookie('accessToken')}` } } : options);
   const data = await parseResponse(res);
   if (!data.success)
     throw new Error('Backend unsuccess');
@@ -52,7 +52,7 @@ export const getIngredientsDataApi = async () => {
 }
 
 export const createOrderApi = async (ingredients: string[]) => {
-  return await request(`${baseUrl}/orders`, postRequest({ ingredients: ingredients }));
+  return await request(`${baseUrl}/orders`, postRequest({ ingredients: ingredients }), true);
 }
 
 export const forgorPasswordApi = async (email: string) => {
@@ -86,3 +86,9 @@ export const getUserApi = async () => {
 export const patchUserApi = async (params: IRegisterUserParams) => {
   return await request(`${baseUrl}/auth/user`, { ...postRequest(params), method: 'PATCH', }, true);
 }
+
+export const orderInfoApi = async (params: string) => {
+  return await request(`${baseUrl}/orders/${params}`);
+}
+
+

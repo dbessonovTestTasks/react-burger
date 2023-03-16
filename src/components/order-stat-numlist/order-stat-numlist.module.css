@@ -1,0 +1,4 @@
+.numListContainer{
+    display: grid;
+    grid-column-gap: 15px;    
+}

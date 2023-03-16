@@ -1,0 +1,75 @@
+.container{
+width: 600px;
+background-color: #1c1c21;
+border-radius: 7%;
+}
+
+.containerContent{
+    width: 550px;
+    display: inline-block;
+    align-items: center;
+}
+
+.cardHeader{    
+    width: 550px;
+    display: inline-block;    
+}
+
+.leftText{
+    text-align: left;
+}
+
+.leftBlock{
+    float: left;
+}
+
+.rightBlock{
+    float: right;
+}
+
+.iconCost{
+    display: flex;
+}
+
+.iconBlock{
+    display: flex;
+    float: left;
+    position: relative;
+    margin-left: 20px;    
+}
+
+.icon{
+    position: relative;
+    margin-left: -20px;
+    display: flex;    
+    justify-content: center;    
+    background-color: var(--background);
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 2px solid #5841ed;
+}
+
+.costBlock{
+    display: flex;
+    float: right;
+    justify-content: center; 
+    align-items: center;
+    margin-left: auto;
+}
+
+.textOverlay{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+}
+
+.specColor {
+    color: #00cccc;
+    text-align: left;
+}

@@ -1,0 +1,32 @@
+.container{
+    display: flex;    
+    align-items: center;
+    margin-right: 24px;
+}
+
+.name{
+    width: 250px;
+}
+
+.leftBlock{
+    float: left;
+}
+
+.footer{
+    display: flex;
+}
+
+.costBlock {
+    display: flex;
+    float: right;
+    margin-left: auto;
+}
+
+.icon{
+    display: flex;    
+    justify-content: center;        
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 2px solid #5841ed;
+}

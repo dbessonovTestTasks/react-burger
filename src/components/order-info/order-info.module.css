@@ -1,0 +1,40 @@
+.container {
+    width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+.centerBlock {
+    text-align: center;
+}
+
+.leftBlock {
+    float: left;
+}
+
+.footer {
+    display: flex;
+}
+
+.costBlock {
+    display: flex;
+    float: right;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+}
+
+.specColor {
+    color: #00cccc;
+}
+
+.ingridientsContainer {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    max-height: 30vmin;
+    overflow-y: scroll;
+    width: 520px;
+    margin-bottom: 40px;
+}

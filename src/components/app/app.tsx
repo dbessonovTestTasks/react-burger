@@ -13,6 +13,9 @@ import { useEffect } from 'react';
 import { loadIngredientsAction } from '../../services/api-actions-generation';
 import { useDispatch } from '../hooks/use-dispatch';
 import { UserProfileEdit } from '../user-profile-edit/user-profile-edit';
+import { FeedPage } from '../../pages/feed';
+import { UserOrdersPage } from '../../pages/user-orders-page';
+import { OrderInfo } from '../order-info/order-info';
 
 function App() {
   const { failed: ingredientsFailed, errorMessage: ingredientsErrorMessage } = useSelector(store => store.apiIngredients);
@@ -41,11 +44,13 @@ function App() {
                 <Route path='/reset-password' element={<OnlyUnAuthRouteElement element={<ResetPasswordPage />} />} />
                 <Route path='/profile' element={<ProtectedRouteElement element={<ProfilePage />} />} >
                   <Route path='/profile' element={<ProtectedRouteElement element={<UserProfileEdit />} />} />
-                  <Route path='/profile/orders' element={<ProtectedRouteElement element={<NotFoundPage />} />} />
+                  <Route path='/profile/orders' element={<ProtectedRouteElement element={<UserOrdersPage />} />} />
                   <Route path='/profile/orders/:id' element={<ProtectedRouteElement element={<NotFoundPage />} />} />
                   <Route path='/profile/logout' element={<LogoutPage />} />
                 </Route>
                 <Route path='/ingredients/:id' element={<IngredientDetails />} />
+                <Route path='/feed' element={<FeedPage />} />
+                <Route path='/feed/:id' element={<OrderInfo />} />
                 <Route path='/' element={<HomePage />} />
 
                 <Route path='*' element={<NotFoundPage />} />
@@ -55,6 +60,11 @@ function App() {
                   <Route path='/ingredients/:id' element={
                     <Modal title="Детали ингредиента" onClose={() => navigate(-1)}>
                       <IngredientDetails />
+                    </Modal>
+                  } />
+                  <Route path='/feed/:id' element={
+                    <Modal onClose={() => navigate(-1)}>
+                      <OrderInfo />
                     </Modal>
                   } />
                 </Routes>)

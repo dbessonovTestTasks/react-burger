@@ -1,6 +1,6 @@
 import { apiSliceCreator } from '../utils/api-slice-creator';
-import { IMessageAnswer, IBurgerIngredient, ILoginUserParams, IUserAuthInfo, IBurgerOrder, IRegisterUserParams, IResetPasswordParams, IUserInfo, IRefreshTokensInfo } from '../utils/common-types/interfaces';
-import { getIngredientsDataApi, loginApi, forgorPasswordApi, createOrderApi, registerUserApi, resetPasswordApi, logoutApi, getUserApi, patchUserApi, refreshTokensApi } from '../utils/api-requests';
+import { IMessageAnswer, IBurgerIngredient, ILoginUserParams, IUserAuthInfo, IBurgerOrder, IRegisterUserParams, IResetPasswordParams, IUserInfo, IRefreshTokensInfo, IOrder } from '../utils/common-types/interfaces';
+import { getIngredientsDataApi, loginApi, forgorPasswordApi, createOrderApi, registerUserApi, resetPasswordApi, logoutApi, getUserApi, patchUserApi, refreshTokensApi, orderInfoApi } from '../utils/api-requests';
 import { ClearBurgerIngredients } from './actions/constructor-ingredients';
 import { deleteTokens, setTokens } from '../utils/cookies';
 import { ClearUserAction, SetUserAction, SetUserLogged } from './actions/internal-user';
@@ -29,3 +29,6 @@ export const [apiResetPasswordReducer, resetPassAction] =
 
 export const [apiRefreshTokensReducer, refreshTokensAction] =
     apiSliceCreator<IRefreshTokensInfo, void>('API_REFRESH_TOKEN', refreshTokensApi, null, (data) => setTokens(data.accessToken, data.refreshToken));
+
+export const [apiOrderInfoReducer, orderInfoAction] =
+    apiSliceCreator<{ orders: IOrder[] }, string>('API_ORDER_INFO', orderInfoApi);

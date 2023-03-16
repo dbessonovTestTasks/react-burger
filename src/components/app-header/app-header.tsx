@@ -6,7 +6,7 @@ import { FC } from 'react';
 
 export const AppHeader: FC = () => {
     const { pathname } = useLocation();
-    const ordersIsInactive = !matchPath(pathname, '/orders');
+    const ordersIsInactive = !matchPath(pathname, '/feed');
     const profileIsInactive = !matchPath(pathname, '/profile');
     const constructorIsInactive = !matchPath(pathname, '/');
 
@@ -26,11 +26,11 @@ export const AppHeader: FC = () => {
                     </div>
                     <div className='pl-5 pr-5 pt-4 pb-4'>
                         <ListIcon type={iconType(ordersIsInactive)} />
-                        <Link to={'/orders'} className={`pl-2 text text_type_main-default ${colorType(ordersIsInactive)}`}>Лента заказов</Link>
+                        <Link to={'/feed'} className={`pl-2 text text_type_main-default ${colorType(ordersIsInactive)}`}>Лента заказов</Link>
                     </div>
                     <div className={`pl-5 pr-5 pt-4 pb-4 ${styles.floatRight}`}>
                         <ProfileIcon type={iconType(profileIsInactive)} />
-                        <Link to={'/profile'} className={`pl-2 text text_type_main-default ${colorType(profileIsInactive)}`}>Личный кабинет</Link>
+                        <Link to={'/profile/orders'} className={`pl-2 text text_type_main-default ${colorType(profileIsInactive)}`}>Личный кабинет</Link>
                     </div>
                 </nav>
             </div>

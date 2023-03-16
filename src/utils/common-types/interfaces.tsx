@@ -13,6 +13,12 @@ export interface IBurgerIngredient {
   __v: number;
 }
 
+export interface IBurgerGroupIngredient {
+  id: string;
+  count: number;
+  ingredientDefinition?: IBurgerIngredient;
+}
+
 export type TBurgerIngredient = IBurgerIngredient & {
   count: number;
 }
@@ -66,12 +72,12 @@ export interface IUserInfo {
   }
 }
 
-export interface IUserAuthInfo extends IUserInfo{
+export interface IUserAuthInfo extends IUserInfo {
   accessToken: string;
   refreshToken: string;
 }
 
-export interface IRefreshTokensInfo{
+export interface IRefreshTokensInfo {
   success: boolean;
   accessToken: string;
   refreshToken: string;
@@ -80,4 +86,21 @@ export interface IRefreshTokensInfo{
 export interface ILoginUserParams {
   email: string;
   password: string;
+}
+
+export interface IOrder {
+  ingredients: string[];
+  _id: string;
+  status: string;
+  name: string;
+  number: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface IOrders {
+  success: boolean;
+  orders: IOrder[];
+  total: number;
+  totalToday: number;
 }
