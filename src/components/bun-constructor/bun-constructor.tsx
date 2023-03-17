@@ -18,6 +18,6 @@ export const BunConstructor: FC<IProps> = (props) => {
             price={props.bun.price}
             thumbnail={props.bun.image_mobile}
             extraClass='ml-6'
-        />) : <div className={`constructor-element ${stubTypeClassName} ml-6`}><span>Перетащите сюда булочку и ингридиенты</span></div>
+        />) : <div className={`constructor-element ${stubTypeClassName} ml-6`}><span>Перетащите сюда булочку и ингредиенты</span></div>
     );
 }

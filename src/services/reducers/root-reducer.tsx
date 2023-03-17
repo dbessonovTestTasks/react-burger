@@ -3,10 +3,11 @@ import { popupedIndredientReducer } from './popuped-ingredient';
 import { combineReducers } from 'redux';
 import { tabsIngredientReducer } from './tabs-ingredients';
 import {
-  apiForgotPasswordReducer, apiGetUserReducer, apiIngredientsReducer, apiLoginReducer, apiLogoutReducer, apiOrderReducer,
+  apiForgotPasswordReducer, apiGetUserReducer, apiIngredientsReducer, apiLoginReducer, apiLogoutReducer, apiOrderInfoReducer, apiOrderReducer,
   apiPatchUserReducer, apiRefreshTokensReducer, apiRegUserReducer, apiResetPasswordReducer
 } from '../api-actions-generation';
 import { internalUserReducer } from './internal-user';
+import { wsCommonOrdersReducer, wsUserOrdersReducer } from '../ws-actions-generation';
 
 export const rootReducer = combineReducers({
   apiIngredients: apiIngredientsReducer,
@@ -22,5 +23,8 @@ export const rootReducer = combineReducers({
   getUser: apiGetUserReducer,
   patchUser: apiPatchUserReducer,
   internalUser: internalUserReducer,
-  refreshTokens: apiRefreshTokensReducer
+  refreshTokens: apiRefreshTokensReducer,
+  commonOrders: wsCommonOrdersReducer,
+  userOrders: wsUserOrdersReducer,
+  orderInfo: apiOrderInfoReducer
 });
