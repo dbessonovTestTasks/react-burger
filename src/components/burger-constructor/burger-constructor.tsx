@@ -38,7 +38,7 @@ export const BurgerConstructor: FC = () => {
         if (!isLogged)
             navigate('/login');
         else {
-            dispatch(createOrderAction([...notBunIngredients.map(o => o._id), bun!._id]));
+            dispatch(createOrderAction([bun!._id, ...notBunIngredients.map(o => o._id), bun!._id]));
             handleOpenModal();
         }
     }

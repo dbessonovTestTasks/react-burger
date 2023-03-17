@@ -44,10 +44,10 @@ function App() {
                 <Route path='/reset-password' element={<OnlyUnAuthRouteElement element={<ResetPasswordPage />} />} />
                 <Route path='/profile' element={<ProtectedRouteElement element={<ProfilePage />} />} >
                   <Route path='/profile' element={<ProtectedRouteElement element={<UserProfileEdit />} />} />
-                  <Route path='/profile/orders' element={<ProtectedRouteElement element={<UserOrdersPage />} />} />
-                  <Route path='/profile/orders/:id' element={<ProtectedRouteElement element={<NotFoundPage />} />} />
+                  <Route path='/profile/orders' element={<ProtectedRouteElement element={<UserOrdersPage />} />} />                  
                   <Route path='/profile/logout' element={<LogoutPage />} />
                 </Route>
+                <Route path='/profile/orders/:id' element={<ProtectedRouteElement element={<OrderInfo />} />} />
                 <Route path='/ingredients/:id' element={<IngredientDetails />} />
                 <Route path='/feed' element={<FeedPage />} />
                 <Route path='/feed/:id' element={<OrderInfo />} />
@@ -60,6 +60,11 @@ function App() {
                   <Route path='/ingredients/:id' element={
                     <Modal title="Детали ингредиента" onClose={() => navigate(-1)}>
                       <IngredientDetails />
+                    </Modal>
+                  } />
+                  <Route path='/profile/orders/:id' element={
+                    <Modal onClose={() => navigate(-1)}>
+                      <OrderInfo />
                     </Modal>
                   } />
                   <Route path='/feed/:id' element={

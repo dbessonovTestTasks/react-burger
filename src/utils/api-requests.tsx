@@ -1,4 +1,4 @@
-import { baseUrl } from './common-types/constants';
+import { BASEURL } from './common-types/constants';
 import { ILoginUserParams, IRegisterUserParams, IResetPasswordParams } from './common-types/interfaces';
 import { getCookie } from './cookies';
 
@@ -48,47 +48,47 @@ const postRequest = (body: any) => {
 }
 
 export const getIngredientsDataApi = async () => {
-  return await request(`${baseUrl}/ingredients`);
+  return await request(`${BASEURL}/ingredients`);
 }
 
 export const createOrderApi = async (ingredients: string[]) => {
-  return await request(`${baseUrl}/orders`, postRequest({ ingredients: ingredients }), true);
+  return await request(`${BASEURL}/orders`, postRequest({ ingredients: ingredients }), true);
 }
 
 export const forgorPasswordApi = async (email: string) => {
-  return await request(`${baseUrl}/password-reset`, postRequest({ email: email }));
+  return await request(`${BASEURL}/password-reset`, postRequest({ email: email }));
 }
 
 export const resetPasswordApi = async (params: IResetPasswordParams) => {
-  return await request(`${baseUrl}/password-reset/reset`, postRequest(params));
+  return await request(`${BASEURL}/password-reset/reset`, postRequest(params));
 }
 
 export const registerUserApi = async (params: IRegisterUserParams) => {
-  return await request(`${baseUrl}/auth/register`, postRequest(params));
+  return await request(`${BASEURL}/auth/register`, postRequest(params));
 }
 
 export const loginApi = async (params: ILoginUserParams) => {
-  return await request(`${baseUrl}/auth/login`, postRequest(params));
+  return await request(`${BASEURL}/auth/login`, postRequest(params));
 }
 
 export const logoutApi = async () => {
-  return await request(`${baseUrl}/auth/logout`, postRequest({ token: localStorage.getItem('refreshToken') }));
+  return await request(`${BASEURL}/auth/logout`, postRequest({ token: localStorage.getItem('refreshToken') }));
 }
 
 export const refreshTokensApi = async () => {
-  return await request(`${baseUrl}/auth/token`, postRequest({ token: localStorage.getItem('refreshToken') }));
+  return await request(`${BASEURL}/auth/token`, postRequest({ token: localStorage.getItem('refreshToken') }));
 }
 
 export const getUserApi = async () => {
-  return await request(`${baseUrl}/auth/user`, undefined, true);
+  return await request(`${BASEURL}/auth/user`, undefined, true);
 }
 
 export const patchUserApi = async (params: IRegisterUserParams) => {
-  return await request(`${baseUrl}/auth/user`, { ...postRequest(params), method: 'PATCH', }, true);
+  return await request(`${BASEURL}/auth/user`, { ...postRequest(params), method: 'PATCH', }, true);
 }
 
 export const orderInfoApi = async (params: string) => {
-  return await request(`${baseUrl}/orders/${params}`);
+  return await request(`${BASEURL}/orders/${params}`);
 }
 
 

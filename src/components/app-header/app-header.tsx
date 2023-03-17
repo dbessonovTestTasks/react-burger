@@ -7,7 +7,7 @@ import { FC } from 'react';
 export const AppHeader: FC = () => {
     const { pathname } = useLocation();
     const ordersIsInactive = !matchPath(pathname, '/feed');
-    const profileIsInactive = !matchPath(pathname, '/profile');
+    const profileIsInactive = !matchPath({path: '/profile/*'}, pathname);
     const constructorIsInactive = !matchPath(pathname, '/');
 
     const iconType = (isInactive: boolean) => isInactive ? 'secondary' : 'primary';

@@ -5,7 +5,7 @@ import { LoaderButton } from '../components/loader-button/loader-button';
 import { OrderList } from '../components/order-list/order-list';
 import { OrderStat } from '../components/orders-stat/order-stat';
 import { wsCommonOrdersActions } from '../services/ws-actions-generation';
-import { OrderStatusTypes, wsBaseUrl } from '../utils/common-types/constants';
+import { OrderStatusTypes, WSBASEURL } from '../utils/common-types/constants';
 import styles from './feed.module.css';
 
 export function FeedPage() {
@@ -16,7 +16,7 @@ export function FeedPage() {
     const inProgressOrders = useMemo(() => wsData?.orders.filter(o => o.status === OrderStatusTypes.Pending)?.map(o => o.number) ?? [], [wsData?.orders]);
 
     useEffect(() => {
-        dispatch(wsCommonOrdersActions.startAction(`${wsBaseUrl}/orders/all`));
+        dispatch(wsCommonOrdersActions.startAction(`${WSBASEURL}/orders/all`));
         return () => {
             dispatch(wsCommonOrdersActions.endAction());
         }

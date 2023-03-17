@@ -7,7 +7,6 @@ import { useParams } from 'react-router-dom';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { LoaderButton } from '../loader-button/loader-button';
 import { OrderInfoIngredient } from '../order-info-ingredient/order-info-ingredient';
-import { OrderStatusTypes } from '../../utils/common-types/constants';
 import { IBurgerGroupIngredient } from '../../utils/common-types/interfaces';
 import { decodeOrderState } from '../../utils/utils';
 
@@ -22,24 +21,27 @@ export const OrderInfo: FC = () => {
     }, [id, dispatch]);
 
     const ingredientsFromApi = useSelector(store => store.apiIngredients);
-    const groupIngridients: IBurgerGroupIngredient[] = [];
 
-    orderInfo?.ingredients.forEach((o) => {
-        const included = groupIngridients.find(g => g.id === o);
-        if (!!included)
-            included.count++;
-        else
-            groupIngridients.push({ id: o, count: 1 });
-    });
+    const groupIngridients: IBurgerGroupIngredient[] = useMemo(() => {
+        let groupIngridientsLocal: IBurgerGroupIngredient[] = [];
+        orderInfo?.ingredients.forEach((o) => {
+            const included = groupIngridientsLocal.find(g => g.id === o);
+            if (!!included)
+                included.count++;
+            else
+                groupIngridientsLocal.push({ id: o, count: 1 });
+        });
+        return groupIngridientsLocal;
+    }, [orderInfo?.ingredients]);
 
     const ingredientsList = useMemo(() => groupIngridients.map(o => {
         return { ...o, ingredientDefinition: ingredientsFromApi.answer?.data.find(ingr => ingr._id === o.id) }
     }) ?? []
-        , [orderInfo?.ingredients, ingredientsFromApi.answer?.data]);
+        , [groupIngridients, ingredientsFromApi.answer?.data]);
     const orderCost = useMemo(() => { return ingredientsList.reduce((s, o) => s + o.ingredientDefinition!.price * o.count, 0) }
         , [ingredientsList]);
 
-    if (orderInfo === null || orderInfo.number.toString() !== id)
+    if (orderInfo === null || orderInfo?.number.toString() !== id)
         return (<LoaderButton htmlType='button' isDisabled={orderInfoStore.request} text='Получить информацию о заказе'
             loaderText='Получение информации о заказе...'
             errorText={orderInfoStore.errorMessage} />);
