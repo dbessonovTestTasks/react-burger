@@ -50,7 +50,8 @@ function App() {
                 <Route path='/profile/orders/:id' element={<ProtectedRouteElement element={<OrderInfo />} />} />
                 <Route path='/ingredients/:id' element={<IngredientDetails />} />
                 <Route path='/feed' element={<FeedPage />} />
-                <Route path='/feed/:id' element={<OrderInfo />} />
+                <Route path='/feed/:id' element={<OrderInfo />} />                
+                <Route path='/index.html' element={<HomePage />} />
                 <Route path='/' element={<HomePage />} />
 
                 <Route path='*' element={<NotFoundPage />} />
